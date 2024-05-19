@@ -83,11 +83,31 @@ const Navbar = () => {
                 {link.title}
               </Link>
             ))}
+            <div className="flex gap-6 mt-4">
+              <Link
+                href="https://github.com/tamimhasan19702"
+                target="_blank"
+                rel="noopener noreferrer">
+                <FaGithub size={35} color="white" />
+              </Link>
+              <Link
+                href="https://www.linkedin.com/in/tareq-monower-tamim/"
+                target="_blank"
+                rel="noopener noreferrer">
+                <IoLogoLinkedin size={35} color="white" />
+              </Link>
+              <Link
+                href="mailto:tareqmonower21@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer">
+                <SiGmail size={35} />
+              </Link>
+            </div>
           </div>
         )}
 
+        {/* Desktop Menu List */}
         <div className="hidden md:flex gap-8 items-center">
-          {/* Desktop Menu List */}
           <div className="hidden md:flex gap-8 items-center">
             {links.map((link) => (
               <Link
