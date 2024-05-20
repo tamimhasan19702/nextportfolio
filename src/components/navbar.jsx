@@ -3,10 +3,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
+
 import { FaGithub } from "react-icons/fa";
 import { IoLogoLinkedin } from "react-icons/io";
 import { SiGmail } from "react-icons/si";
+import NavLink from "./navLink";
+import Logo from "./logo";
 
 const links = [
   {
@@ -34,21 +36,8 @@ const Navbar = () => {
   return (
     <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
       {/* Logo */}
-      <div className="relative">
-        <Link
-          href="/"
-          className="relative text-sm bg-black rounded-md p-1 font-semibold flex items-center justify-center overflow-hidden group border-none">
-          <span className="flex px-1 items-center justify-center w-15 h-5 relative z-20 text-white mr-1 bg-black rounded transition-all duration-500 group-hover:text-black group-hover:bg-white group-hover:px-2">
-            Tareq
-          </span>
-          <span className="flex items-center justify-center px-2 relative z-20 bg-shadow w-15 h-5 rounded bg-white text-black transition-colors duration-500 group-hover:bg-black group-hover:text-white group-hover:px-1">
-            Tamim
-          </span>
-          <span
-            className="absolute inset-0 transition-transform duration-300 ease-in-out bg-white z-10 group-hover:translate-x-0"
-            style={{ transform: "translateX(-100%)" }}></span>
-        </Link>
-      </div>
+      <Logo url="/" />
+
       <div>
         {/* Menu button */}
         <div className="md:hidden">
@@ -109,19 +98,11 @@ const Navbar = () => {
         {/* Desktop Menu List */}
         <div className="hidden md:flex gap-8 items-center">
           <div className="hidden md:flex gap-8 items-center">
-            {links.map((link) => (
-              <Link
-                href={link.url}
-                key={link.url}
-                className={`p-2 rounded-md transition-ease duration-500 ${
-                  activeLink === link.url
-                    ? "bg-black text-white pt-1 pb-1 pr-3 pl-3"
-                    : "hover:bg-black hover:text-white hover:pt-1 hover:pb-1 hover:pr-3 hover:pl-3"
-                }`}
-                onClick={() => setActiveLink(link.url)}>
-                {link.title}
-              </Link>
-            ))}
+            {links.map((link) => {
+              return (
+                <NavLink key={link.url} url={link.url} title={link.title} />
+              );
+            })}
           </div>
 
           {/* Social Icons */}
