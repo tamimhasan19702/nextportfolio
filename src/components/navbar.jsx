@@ -42,7 +42,7 @@ const Navbar = () => {
         {/* Menu button */}
         <div className="md:hidden">
           <button
-            className="w-8 h-5 flex flex-col justify-between z-50 relative"
+            className="w-8 h-5 flex flex-col justify-between z-40 relative"
             onClick={() => setOpen((prev) => !prev)}>
             <div
               className="w-full h-1 bg-white rounded"
@@ -58,7 +58,7 @@ const Navbar = () => {
 
         {/* Mobile Menu List */}
         {open && (
-          <div className="absolute top-0 right-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl">
+          <div className="absolute top-0 right-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl z-30">
             {links.map((link) => (
               <Link
                 href={link.url}

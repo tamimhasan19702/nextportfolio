@@ -10,7 +10,7 @@ const Logo = (url) => {
           Tareq
         </span>
         <span className="flex items-center justify-center px-2 relative z-20 bg-shadow w-15 h-5 rounded bg-white text-black transition-colors duration-500 group-hover:bg-black group-hover:text-white group-hover:px-1">
-          Tamim
+          Monower
         </span>
         <span
           className="absolute inset-0 transition-transform duration-300 ease-in-out bg-white z-10 group-hover:translate-x-0"

@@ -12,8 +12,8 @@ const NavLink = ({ url, title }) => {
       key={url}
       className={`p-2 rounded-md transition-ease duration-500 ${
         pathName === url
-          ? "bg-black text-white "
-          : "text-black hover:bg-black hover:text-white hover:p-3"
+          ? "bg-black text-white pl-5"
+          : "text-black hover:bg-black hover:text-white hover:pl-5"
       }`}>
       {title}
     </Link>
