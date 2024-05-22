@@ -66,6 +66,29 @@ const Navbar = () => {
     },
   };
 
+  const listVariants = {
+    closed: {
+      x: "100vw",
+    },
+    opened: {
+      x: 0,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const listItemVariants = {
+    closed: {
+      x: -10,
+      opacity: 0,
+    },
+    opened: {
+      x: 0,
+      opacity: 1,
+    },
+  };
+
   return (
     <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
       {/* Logo */}
@@ -94,21 +117,26 @@ const Navbar = () => {
 
         {/* Mobile Menu List */}
         {open && (
-          <div className="absolute top-0 right-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl z-30">
+          <motion.div
+            variants={listVariants}
+            initial="closed"
+            animate="opened"
+            className="absolute top-0 right-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl z-30">
             {links.map((link) => (
-              <Link
-                href={link.url}
-                key={link.url}
-                className={`p-2 rounded-md transition-all duration-300 ${
-                  activeLink === link.url
-                    ? "bg-white text-black pt-1 pb-1 pr-3 pl-3"
-                    : "hover:bg-white hover:text-black  hover:pt-1 hover:pb-1 hover:pr-3 hover:pl-3"
-                }`}
-                onClick={() => setActiveLink(link.url)}>
-                {link.title}
-              </Link>
+              <motion.div key={link.url} variants={listItemVariants}>
+                <Link
+                  href={link.url}
+                  className={`p-2 rounded-md transition-all duration-300 ${
+                    activeLink === link.url
+                      ? "bg-white text-black px-5 py-2"
+                      : "text-white hover:bg-white hover:text-black hover:px-6 hover:py-2"
+                  }`}
+                  onClick={() => setActiveLink(link.url)}>
+                  {link.title}
+                </Link>
+              </motion.div>
             ))}
-            <div className="flex gap-6 mt-4">
+            <motion.div className="flex gap-6 mt-4" variants={listItemVariants}>
               <Link
                 href="https://github.com/tamimhasan19702"
                 target="_blank"
@@ -127,12 +155,12 @@ const Navbar = () => {
                 rel="noopener noreferrer">
                 <SiGmail size={35} />
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
 
         {/* Desktop Menu List */}
-        <div className="hidden md:flex gap-8 items-center">
+        <div className="hidden md:flex gap-6 items-center">
           <div className="hidden md:flex gap-8 items-center">
             {links.map((link) => {
               return (
