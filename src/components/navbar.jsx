@@ -9,6 +9,7 @@ import { IoLogoLinkedin } from "react-icons/io";
 import { SiGmail } from "react-icons/si";
 import NavLink from "./navLink";
 import Logo from "./logo";
+import { motion } from "framer-motion";
 
 const links = [
   {
@@ -33,6 +34,38 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [activeLink, setActiveLink] = useState(null);
 
+  // framer motion variants
+  const topVariants = {
+    closed: {
+      rotate: 0,
+    },
+    opened: {
+      rotate: 45,
+
+      backgroundColor: "rgb(255, 255, 255)",
+    },
+  };
+
+  const centerVariants = {
+    closed: {
+      opacity: 1,
+    },
+    opened: {
+      opacity: 0,
+    },
+  };
+
+  const bottomVariants = {
+    closed: {
+      rotate: 0,
+    },
+    opened: {
+      rotate: -45,
+
+      backgroundColor: "rgb(255, 255, 255)",
+    },
+  };
+
   return (
     <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
       {/* Logo */}
@@ -42,17 +75,20 @@ const Navbar = () => {
         {/* Menu button */}
         <div className="md:hidden">
           <button
-            className="w-8 h-5 flex flex-col justify-between z-40 relative"
+            className="w-10 h-8 flex flex-col justify-between z-40 relative"
             onClick={() => setOpen((prev) => !prev)}>
-            <div
-              className="w-full h-1 bg-white rounded"
-              style={{ backgroundColor: !open ? "black" : "white" }}></div>
-            <div
-              className="w-full h-1 bg-white rounded"
-              style={{ backgroundColor: !open ? "black" : "white" }}></div>
-            <div
-              className="w-full h-1 bg-white rounded"
-              style={{ backgroundColor: !open ? "black" : "white" }}></div>
+            <motion.div
+              variants={topVariants}
+              animate={open ? "opened" : "closed"}
+              className="w-10 h-1 bg-black rounded origin-left"></motion.div>
+            <motion.div
+              variants={centerVariants}
+              animate={open ? "opened" : "closed"}
+              className="w-10 h-1 bg-black rounded"></motion.div>
+            <motion.div
+              variants={bottomVariants}
+              animate={open ? "opened" : "closed"}
+              className="w-10 h-1 bg-black rounded origin-left"></motion.div>
           </button>
         </div>
 

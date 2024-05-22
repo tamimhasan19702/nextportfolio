@@ -25,7 +25,7 @@ const Homepage = () => {
           commitment to excellence.
         </p>
         {/* buttons */}
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-full ml-4">
           <div className="group">
             <button className="p-4 rounded-lg ring-2 ring-black bg-black text-white transition-all duration-300 hover:bg-white hover:text-black font-bold  hover:pl-8">
               View My Work
