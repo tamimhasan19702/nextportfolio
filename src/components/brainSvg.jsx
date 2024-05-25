@@ -14,7 +14,7 @@ const Brain = ({ scrollYProgress }) => {
   const rotatesBackward3 = useTransform(scrollYProgress, [0, 1], [0, -90]);
   const rotatesBackward4 = useTransform(scrollYProgress, [0, 1], [0, -45]);
   return (
-    <div className="w-full h-full  no-scrollbar">
+    <div className="w-full h-full no-scrollbar overflow-x-hidden">
       <svg width="100%" height="100%">
         <defs>
           <path d="M.416.37V.366L.417.345V.37" id="path-1" />
