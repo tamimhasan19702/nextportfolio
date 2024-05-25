@@ -2,60 +2,75 @@
 
 import { motion } from "framer-motion";
 
-const Skills = () => {
+const Skills = ({ isSkillRefInView }) => {
   return (
-    <div className="flex flex-col gap-12 justify-center">
-      {/* skill title */}
-      <h1 className="font-bold text-2xl">SKILLS</h1>
-      {/* skill list */}
-      <div className="flex flex-wrap gap-4">
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          Javascript
+    <>
+      {/* SKILL TITLE */}
+      <motion.h1
+        initial={{ x: "-300px" }}
+        animate={isSkillRefInView ? { x: 0 } : {}}
+        transition={{ delay: 0.2 }}
+        className="font-bold text-2xl">
+        SKILLS
+      </motion.h1>
+      {/* SKILL LIST */}
+      <motion.div
+        initial={{ x: "-300px" }}
+        animate={isSkillRefInView ? { x: 0 } : {}}
+        className="flex gap-4 flex-wrap">
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          JavaScript
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          TypeScript
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          ReactJS
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          React JS
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          ReactNative
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          Next JS
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          NextJS
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          FIREBASE
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          Node/Express
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          React Native
-        </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          Tailwind CSS
-        </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          SCSS
-        </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
           MongoDB
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          Node-Express
-        </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          PHP
-        </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
-          WordPress
-        </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
           MySql
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          PHP
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          WordPress
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          Tailwind CSS
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          SCSS
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          Firebase
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
           Redux
         </div>
-        <div className="rounded p-3 backdrop text-sm cursor-pointer shadow-lg bg-black text-white hover:bg-white hover:text-black transition-all duration-300">
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
           Framer Motion
         </div>
-      </div>
-      {/* skill svg */}
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          Rest API
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          HTML
+        </div>
+        <div className="rounded  px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">
+          CSS
+        </div>
+      </motion.div>
+      {/* SKILL SCROLL SVG */}
       <motion.svg
         initial={{ opacity: 0.2, y: 0 }}
         animate={{ opacity: 1, y: "10px" }}
@@ -72,7 +87,7 @@ const Skills = () => {
         <path d="M12 6V14" stroke="#000000" strokeWidth="1"></path>
         <path d="M15 11L12 14L9 11" stroke="#000000" strokeWidth="1"></path>
       </motion.svg>
-    </div>
+    </>
   );
 };
 

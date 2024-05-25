@@ -5,22 +5,32 @@ import Image from "next/image";
 const Biography = () => {
   return (
     <div className="flex flex-col gap-12 justify-center">
+      {/* BIOGRAPHY IMAGE */}
+      {/* <Image
+      src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=800"
+      alt=""
+      width={112}
+      height={112}
+      className="w-28 h-28 rounded-full object-cover"
+    /> */}
+      {/* BIOGRAPHY TITLE */}
       <h1 className="font-bold text-2xl">BIOGRAPHY</h1>
+      {/* BIOGRAPHY DESC */}
       <p className="text-lg">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum harum
+        quibusdam cupiditate nobis accusamus sed aut aperiam, reiciendis
+        numquam! Voluptas voluptatibus obcaecati dolore itaque suscipit! Vel
+        doloremque numquam quam nihil.
       </p>
+      {/* BIOGRAPHY QUOTE */}
       <span className="italic">
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </span>
+      {/* BIOGRAPHY SIGN SVG*/}
       <div className="self-end">
-        <Image width={300} height={300} src={"/signature.png"} />
+        <Image src={"/signature.png"} width={200} height={200} />
       </div>
+      {/* BIOGRAPHY SCROLL SVG */}
       <motion.svg
         initial={{ opacity: 0.2, y: 0 }}
         animate={{ opacity: 1, y: "10px" }}

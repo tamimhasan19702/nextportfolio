@@ -3,24 +3,32 @@
 import { motion } from "framer-motion";
 import ExperienceListItem from "./experienceListItem";
 
-const Experience = () => {
+const Experience = ({ isExperienceRefInView }) => {
   return (
-    <div className="flex flex-col gap-12 justify-center">
-      {/* experience title */}
-      <h1 className="font-bold text-2xl">Experience</h1>
-      {/* experience list */}
-
-      <div>
+    <>
+      {/* EXPERIENCE TITLE */}
+      <motion.h1
+        initial={{ x: "-300px" }}
+        animate={isExperienceRefInView ? { x: "0" } : {}}
+        transition={{ delay: 0.2 }}
+        className="font-bold text-2xl">
+        EXPERIENCE
+      </motion.h1>
+      {/* EXPERIENCE LIST */}
+      <motion.div
+        initial={{ x: "-300px" }}
+        animate={isExperienceRefInView ? { x: "0" } : {}}
+        className="">
         {/* EXPERIENCE LIST ITEM */}
         <div className="flex justify-between h-48">
           {/* LEFT */}
           <div className="w-1/3 ">
             <ExperienceListItem
-              name={"Senior JavaScript Engineer"}
+              name={"Senior React Developer"}
               desc={
-                "I led web development, offering expertise in JavaScript frameworks."
+                "I provided web solutions, applying a range of technologies to address client requirements."
               }
-              time={"2024 - Present"}
+              time={"2010 - 2019"}
               company={"Apple"}
             />
           </div>
@@ -35,9 +43,11 @@ const Experience = () => {
           {/* RIGHT */}
           <div className="w-1/3 "></div>
         </div>
+
         {/* EXPERIENCE LIST ITEM */}
         <div className="flex justify-between h-48">
           {/* LEFT */}
+
           <div className="w-1/3 "></div>
           {/* CENTER */}
           <div className="w-1/6 flex justify-center">
@@ -65,11 +75,12 @@ const Experience = () => {
           {/* LEFT */}
           <div className="w-1/3 ">
             <ExperienceListItem
-              name={" Freelancer"}
+              name={"Senior React Developer"}
               desc={
                 "I provided web solutions, applying a range of technologies to address client requirements."
               }
               time={"2010 - 2019"}
+              company={"Apple"}
             />
           </div>
           {/* CENTER */}
@@ -83,10 +94,8 @@ const Experience = () => {
           {/* RIGHT */}
           <div className="w-1/3 "></div>
         </div>
-      </div>
-
-      {/* experience svg */}
-    </div>
+      </motion.div>
+    </>
   );
 };
 

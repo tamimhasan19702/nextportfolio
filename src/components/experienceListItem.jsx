@@ -3,7 +3,7 @@
 const ExperienceListItem = ({ name, desc, time, company }) => {
   return (
     <>
-      <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
+      <div className="bg-black hover:bg-white hover:text-black transition-all duration-300 text-white p-3 font-semibold rounded-b-lg rounded-s-lg shadow-lg ">
         {name}
       </div>
 
@@ -11,9 +11,11 @@ const ExperienceListItem = ({ name, desc, time, company }) => {
 
       <div className="p-3 text-red-400 text-sm font-semibold">{time} </div>
 
-      <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-        {company && company}
-      </div>
+      {company && (
+        <div className="px-4 py-2 rounded shadow-lg bg-white text-sm font-semibold w-fit">
+          {company}
+        </div>
+      )}
     </>
   );
 };
