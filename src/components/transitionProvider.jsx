@@ -9,9 +9,7 @@ const TransitionProvider = ({ children }) => {
   const pathName = usePathname();
   return (
     <AnimatePresence mode="wait">
-      <div
-        key={pathName}
-        className="w-screen h-screen overflow-y-scroll no-scrollbar">
+      <div key={pathName} className="w-screen h-screen overflow-y-scroll ">
         <motion.div
           className="h-screen w-screen fixed bg-black rounded-b-[100px] z-40"
           animate={{ height: "0vh" }}
