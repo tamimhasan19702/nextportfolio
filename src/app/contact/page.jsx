@@ -10,29 +10,28 @@ const ContactPage = () => {
 
   const form = useRef();
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
-    setError(false);
-    setSuccess(false);
-
-    emailjs
-      .sendForm(
-        "process.env.NEXT_PUBLIC_SERVICE_ID",
-        "process.env.NEXT_PUBLIC_TEMPLATE_ID",
-        form.current,
-        "process.env.NEXT_PUBLIC_KEY "
-      )
-      .then(
-        () => {
-          console.log("SUCCESS!");
-          setSuccess(true);
-          form.current.reset();
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-          setError(true);
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/el/confirm/f546fbcfdfebc99e9bda90c26dafa324",
+        {
+          method: "POST",
+          body: new FormData(form.current),
         }
       );
+      const data = await response.json();
+      if (data.success) {
+        setSuccess(true);
+        setError(false);
+      } else {
+        setError(true);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(true);
+      setSuccess(false);
+    }
   };
 
   return (
