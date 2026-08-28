@@ -11,35 +11,30 @@ const ContactPage = () => {
   const formInView = useInView(formRef, { once: true, margin: "-100px" });
   const leftInView = useInView(leftRef, { once: true, margin: "-100px" });
 
-  const sendEmail = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        "https://formsubmit.co/el/confirm/f546fbcfdfebc99e9bda90c26dafa324",
-        {
-          method: "POST",
-          body: new FormData(formRef.current),
-        }
-      );
-      const data = await response.json();
-      if (data.success) {
-        setSuccess(true);
-        setError(false);
-      } else {
-        setError(true);
-        setSuccess(false);
-      }
-    } catch (error) {
-      setError(true);
-      setSuccess(false);
-    }
+    const form = formRef.current;
+    const formData = new FormData(form);
+    const name = formData.get("userName");
+    const email = formData.get("userEmail");
+    const message = formData.get("userMessage");
+
+    const subject = `Portfolio Contact from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    const mailtoLink = `mailto:tareqmonower21@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
+
+    setSuccess(true);
+    setError(false);
+    form.reset();
   };
 
   const typewriterText = [
     "Let's Talk",
     "Have a project in mind, or just want to say hi? I'd love to hear from you — I usually reply within 24 hours.",
-    "Email: <a href=\"mailto:tareqmonower21@gmail.com\" class=\"text-accent hover:underline\">tareqmonower21@gmail.com</a>",
-    "Phone/WhatsApp: <a href=\"tel:01714270830\" class=\"text-accent hover:underline\">01714270830</a>",
+    "Email: <a href=\"mailto:tareqmonower21@gmail.com\" style=\"color: #000; font-weight: bold; text-decoration: underline;\">tareqmonower21@gmail.com</a>",
+    "Phone/WhatsApp: <a href=\"tel:01714270830\" style=\"color: #000; font-weight: bold; text-decoration: underline;\">01714270830</a>",
     "Location: Dhaka, Bangladesh",
     "Availability: Open to freelance & full-time roles",
     "Good work starts with a good conversation."
@@ -134,8 +129,8 @@ const ContactPage = () => {
             <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-green-500 font-semibold">
-              Message sent
+              className="text-black font-semibold">
+              Message sent successfully
             </motion.span>
           )}
           {error && (
