@@ -1,22 +1,68 @@
 /** @format */
+"use client";
+
 import Link from "next/link";
-const Logo = (url) => {
+import { useEffect, useState } from "react";
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const Logo = ({ url }) => {
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const play = async () => {
+      let t = "";
+      setText(t);
+
+      const write = async (str) => {
+        for (const ch of str) {
+          if (cancelled) return;
+          t += ch;
+          setText(t);
+          await delay(150);
+        }
+      };
+
+      const erase = async (n) => {
+        for (let i = 0; i < n; i++) {
+          if (cancelled) return;
+          t = t.slice(0, -1);
+          setText(t);
+          await delay(150);
+        }
+      };
+
+      await write("{{}}");
+      await delay(500);
+      await erase(2);
+      await delay(300);
+      await write("TAREQ MONOW");
+      await delay(750);
+      await erase(1);
+      await delay(750);
+      await write("WER}}");
+      await delay(1500);
+      if (!cancelled) play();
+    };
+
+    play();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
-    <div className="relative">
-      <Link
-        href={url}
-        className="relative text-sm bg-black rounded-md p-1 font-semibold flex items-center justify-center overflow-hidden group border-none">
-        <span className="flex px-1 items-center justify-center w-15 h-5 relative z-20 text-white mr-1 bg-black rounded transition-all duration-500 group-hover:text-black group-hover:bg-white group-hover:px-2">
-          Tareq
-        </span>
-        <span className="flex items-center justify-center px-2 relative z-20 bg-shadow w-15 h-5 rounded bg-white text-black transition-colors duration-500 group-hover:bg-black group-hover:text-white group-hover:px-1">
-          Monower
-        </span>
-        <span
-          className="absolute inset-0 transition-transform duration-300 ease-in-out bg-white z-10 group-hover:translate-x-0"
-          style={{ transform: "translateX(-100%)" }}></span>
-      </Link>
-    </div>
+    <Link
+      href={url}
+      className="flex items-center text-lg sm:text-xl font-bold text-zinc-900 whitespace-nowrap transition-opacity duration-300 hover:opacity-70 select-none">
+      <span>{text}</span>
+      <span
+        aria-hidden
+        className="inline-block ml-1 h-[1em] w-[0.55em] bg-zinc-900 animate-pulse"
+      />
+    </Link>
   );
 };
 

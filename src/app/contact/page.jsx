@@ -40,8 +40,8 @@ const ContactPage = () => {
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
-      <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
-        <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center text-6xl">
+      <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-16 lg:pb-0">
+        <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center text-4xl sm:text-5xl lg:text-6xl">
           <div>
             {text.split("").map((letter, index) => (
               <motion.span
@@ -62,7 +62,7 @@ const ContactPage = () => {
 
         {/* form container */}
         <form
-          className="h-1/2 lg:h-full lg:w-1/2 bg-red-50 rounded-xl text-xl flex flex-col gap-6 justify-center p-24"
+          className="h-1/2 lg:h-full lg:w-1/2 bg-red-50 rounded-xl text-xl flex flex-col gap-6 justify-center p-8 sm:p-12 md:p-16 lg:p-24"
           ref={form}
           onSubmit={sendEmail}>
           <span>Dear Tareq</span>

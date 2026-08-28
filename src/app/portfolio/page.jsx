@@ -1,90 +1,129 @@
 /** @format */
 "use client";
-import { useRef } from "react";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { items } from "@/components/portfolios";
+import { motion, useScroll } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import Brain from "@/components/brainSvg";
+import { projects } from "@/data/projects";
+import { Card, CardContent } from "@/components/ui/card";
 
-
-
+const formatIndex = (id) => String(id).padStart(2, "0");
 
 const PortfolioPage = () => {
-  const ref = useRef();
-
-  const { scrollYProgress } = useScroll({ target: ref });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const { scrollYProgress } = useScroll();
 
   return (
     <motion.div
-    className="h-full"
-    initial={{ y: "-200vh" }}
-    animate={{ y: "0%" }}
-    transition={{ duration: 1 }}
-  >
-    <div className="h-[600vh] relative" ref={ref}>
-      <div className="w-screen h-[calc(100vh-6rem)] flex items-center justify-center text-8xl text-center">
-        My Works
+      className="h-full bg-white text-zinc-900"
+      initial={{ y: "-200vh" }}
+      animate={{ y: "0%" }}
+      transition={{ duration: 1 }}>
+      {/* CONTAINER */}
+      <div className="lg:flex">
+        {/* PROJECTS CONTAINER */}
+        <div className="flex flex-col gap-10 md:gap-14 p-4 sm:p-8 md:p-12 lg:p-20 xl:px-24 2xl:px-32 lg:w-3/5 xl:w-3/5 z-30 pb-24">
+          {/* HEADER */}
+          <header className="flex flex-col gap-5">
+            <span className="w-fit rounded-full bg-zinc-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white">
+              Portfolio / {String(projects.length).padStart(2, "0")} Projects
+            </span>
+            <h1 className="text-5xl sm:text-6xl lg:text-5xl xl:text-6xl font-bold tracking-tighter leading-[0.95]">
+              Selected{" "}
+              <span className="text-transparent [-webkit-text-stroke:1.5px_black]">
+                Work
+              </span>
+            </h1>
+            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-zinc-500">
+              A curated collection of products I&apos;ve designed and built —
+              commerce, publishing, social, and productivity. Click any card to
+              open its case study.
+            </p>
+          </header>
+
+          {/* BENTO GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 lg:auto-rows-[15rem] gap-4 lg:gap-5">
+            {projects.map((project) => (
+              <Link
+                key={project.id}
+                href={`/portfolio/${project.slug}`}
+                className={`group relative block h-56 sm:h-64 lg:h-auto text-left ${
+                  project.span
+                }`}>
+                <Card className="relative h-full w-full overflow-hidden rounded-xl bg-neutral-900 p-0 ring-1 ring-zinc-900">
+                  <Image
+                    src={project.img}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover grayscale contrast-[1.05] opacity-90 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
+
+                  <span className="absolute top-4 left-4 font-mono text-[0.65rem] tracking-widest text-white/70">
+                    {formatIndex(project.id)}
+                  </span>
+                  <span className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-full border border-white/30 text-white/80 transition-all duration-300 group-hover:rotate-45 group-hover:border-white group-hover:bg-white group-hover:text-zinc-900">
+                    <ArrowUpRight className="size-4" />
+                  </span>
+
+                  <CardContent className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-5 text-white">
+                    <span className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-zinc-400">
+                      {project.category} · {project.year}
+                    </span>
+                    <h3
+                      className={`font-bold leading-tight tracking-tight ${
+                        project.theme === "feature"
+                          ? "text-2xl sm:text-3xl"
+                          : "text-lg sm:text-xl"
+                      }`}>
+                      {project.title}
+                    </h3>
+                    <p className="line-clamp-2 max-w-md text-xs sm:text-sm text-zinc-300">
+                      {project.desc}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+
+            {/* CTA TILE */}
+            <Link
+              href="/contact"
+              className="group relative block h-56 sm:h-64 lg:h-auto text-left sm:col-span-2 lg:col-span-2 xl:col-span-1">
+              <Card className="relative h-full w-full overflow-hidden rounded-xl bg-zinc-900 p-0 ring-1 ring-zinc-900">
+                <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-black" />
+                <CardContent className="absolute inset-0 flex flex-col justify-between p-5 text-white">
+                  <span className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-zinc-400">
+                    Next Step
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    <h3 className="text-lg sm:text-xl font-bold leading-tight">
+                      Have a project?
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-300">
+                      Let&apos;s build something together.
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold">
+                    Get in touch
+                    <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        </div>
+
+        {/* SVG CONTAINER */}
+        <div className="hidden lg:block lg:w-2/5 xl:w-2/5 relative z-50">
+          <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+            <Brain scrollYProgress={scrollYProgress} />
+          </div>
+        </div>
       </div>
-      <div className="sticky top-0 flex h-screen gap-4 items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex">
-          <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-r from-purple-300 to-red-300" />
-          {items.map((item) => (
-            <div
-              className={`h-screen w-screen flex items-center justify-center bg-gradient-to-r ${item.color}`}
-              key={item.id}
-            >
-              <div className="flex flex-col gap-8 text-white">
-                <h1 className="text-xl font-bold md:text-4xl lg:text-6xl xl:text-8xl">
-                  {item.title}
-                </h1>
-                <div className="relative w-80 h-56 md:w-96 md:h-64 lg:w-[500px] lg:h-[350px] xl:w-[600px] xl:h-[420px]">
-                  <Image src={item.img} alt="" fill />
-                </div>
-                <p className="w-80 md:w96 lg:w-[500px] lg:text-lg xl:w-[600px]">
-                  {item.desc}
-                </p>
-                <Link href={item.link} className="flex justify-start">
-                  <button className="p-2 text-sm md:p-4 md:text-md lg:p-6 lg:text-lg bg-white text-gray-600 font-semibold m-2 rounded">See Demo</button>
-                </Link>
-              </div>
-            </div>
-        
-          ))}
-        </motion.div>
-      </div>
-    </div>
-    <div className="w-screen h-screen flex flex-col gap-16 items-center justify-center text-center">
-      <h1 className="text-8xl">Do you have a project?</h1>
-      <div className="relative">
-        <motion.svg
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, ease: "linear", repeat: Infinity }}
-          viewBox="0 0 300 300"
-          className="w-64 h-64 md:w-[500px] md:h-[500px] "
-        >
-          <defs>
-            <path
-              id="circlePath"
-              d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "
-            />
-          </defs>
-          <text fill="#000">
-            <textPath xlinkHref="#circlePath" className="text-xl">
-              Wordpress & FrontEnd Developer
-            </textPath>
-          </text>
-        </motion.svg>
-        <Link
-          href="/contact"
-          className="w-16 h-16 md:w-28 md:h-28 absolute top-0 left-0 right-0 bottom-0 m-auto bg-black text-white rounded-full flex items-center justify-center"
-        >
-          Hire Me
-        </Link>
-      </div>
-    </div>
-  </motion.div>
+    </motion.div>
   );
 };
 
