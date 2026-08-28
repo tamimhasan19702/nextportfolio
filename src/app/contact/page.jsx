@@ -38,9 +38,9 @@ const ContactPage = () => {
   const typewriterText = [
     "Let's Talk",
     "Have a project in mind, or just want to say hi? I'd love to hear from you — I usually reply within 24 hours.",
-    "Email: hello@tamim.dev",
-    "Phone: +880 1XXX-XXXXXX",
-    "Location: Pabna, Rajshahi Division, Bangladesh",
+    "Email: tareqmonower21@gmail.com",
+    "Phone/WhatsApp: 01714270830",
+    "Location: Dhaka, Bangladesh",
     "Availability: Open to freelance & full-time roles",
     "Good work starts with a good conversation."
   ];
@@ -55,12 +55,13 @@ const ContactPage = () => {
           initial={{ opacity: 0, x: -50 }}
           animate={leftInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
           transition={{ duration: 0.8, ease: "easeOut" }}>
-          <div className="w-full max-w-xl text-center">
+          <div className="w-full max-w-xl text-left">
             <Typewriter
               lines={typewriterText}
-              className="text-3xl sm:text-4xl lg:text-5xl font-mono leading-relaxed"
+              className="text-base sm:text-lg lg:text-xl font-mono leading-relaxed"
               speed={40}
               startDelay={300}
+              headerClassName="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
             />
           </div>
         </motion.div>
@@ -151,7 +152,7 @@ const ContactPage = () => {
   );
 };
 
-const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0 }) => {
+const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0, headerClassName = "" }) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -173,7 +174,10 @@ const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0 }) => {
 
       for (let i = 0; i < lines.length; i++) {
         if (cancelled) return;
-        await write(lines[i]);
+        const isFirstLine = i === 0;
+        const prefix = isFirstLine ? `<h1 class="${headerClassName}">` : "";
+        const suffix = isFirstLine ? "</h1>" : "";
+        await write(prefix + lines[i] + suffix);
         if (i < lines.length - 1) {
           t += "\n";
           setText(t);
@@ -186,11 +190,11 @@ const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0 }) => {
     return () => {
       cancelled = true;
     };
-  }, [lines, speed, startDelay]);
+  }, [lines, speed, startDelay, headerClassName]);
 
   return (
     <div className={className} style={{ fontFamily: "var(--font-mono, monospace)", whiteSpace: "pre-wrap" }}>
-      {text}
+      <div dangerouslySetInnerHTML={{ __html: text }} style={{ lineHeight: 1.6 }} />
       <span className="inline-block ml-1 h-8 w-[0.55em] bg-current animate-pulse" aria-hidden />
     </div>
   );
