@@ -38,8 +38,8 @@ const ContactPage = () => {
   const typewriterText = [
     "Let's Talk",
     "Have a project in mind, or just want to say hi? I'd love to hear from you — I usually reply within 24 hours.",
-    "Email: tareqmonower21@gmail.com",
-    "Phone/WhatsApp: 01714270830",
+    "Email: <a href=\"mailto:tareqmonower21@gmail.com\" class=\"text-accent hover:underline\">tareqmonower21@gmail.com</a>",
+    "Phone/WhatsApp: <a href=\"tel:01714270830\" class=\"text-accent hover:underline\">01714270830</a>",
     "Location: Dhaka, Bangladesh",
     "Availability: Open to freelance & full-time roles",
     "Good work starts with a good conversation."
@@ -59,8 +59,8 @@ const ContactPage = () => {
             <Typewriter
               lines={typewriterText}
               className="text-base sm:text-lg lg:text-xl font-mono leading-relaxed"
-              speed={40}
-              startDelay={300}
+              speed={10}
+              startDelay={100}
               headerClassName="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
             />
           </div>
@@ -182,7 +182,7 @@ const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0, headerC
           t += "\n";
           setText(t);
         }
-        await delay(800);
+        await delay(200);
       }
     };
 
