@@ -14,6 +14,15 @@
   }
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1.06s infinite;
+}
+
 @theme inline {
   --font-heading: var(--font-courier);
   --font-sans: var(--font-courier);
