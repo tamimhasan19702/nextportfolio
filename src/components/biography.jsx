@@ -28,7 +28,7 @@ const Biography = () => {
       </span>
       {/* BIOGRAPHY SIGN SVG*/}
       <div className="self-end">
-        <Image src={"/signature.png"} width={200} height={200} />
+        <Image src={"/signature.png"} alt="Signature" width={200} height={200} />
       </div>
       {/* BIOGRAPHY SCROLL SVG */}
       <motion.svg

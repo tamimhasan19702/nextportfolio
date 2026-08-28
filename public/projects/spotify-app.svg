@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <text x="120" y="64" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" font-weight="700">Spotify Music App</text>
+  <g transform="translate(96 96)">
+    <rect width="608" height="432" rx="16" fill="#0f172a"/>
+    <rect y="0" width="608" height="48" rx="16" fill="#111827"/>
+    <circle cx="28" cy="24" r="7" fill="#f87171"/>
+    <circle cx="54" cy="24" r="7" fill="#fbbf24"/>
+    <circle cx="80" cy="24" r="7" fill="#34d399"/>
+    <rect x="360" y="14" width="120" height="20" rx="10" fill="#1f2937"/>
+    <rect x="64" y="96" width="104" height="104" rx="12" fill="#a78bfa"/>
+    <rect x="196" y="96" width="104" height="104" rx="12" fill="#f87171"/>
+    <rect x="328" y="96" width="104" height="104" rx="12" fill="#34d399"/>
+    <rect x="460" y="96" width="84" height="104" rx="12" fill="#fb923c"/>
+    <rect x="64" y="228" width="140" height="14" rx="7" fill="#334155"/>
+    <rect x="64" y="252" width="96" height="12" rx="6" fill="#1f2937"/>
+    <rect x="64" y="300" width="480" height="10" rx="5" fill="#334155"/>
+    <rect x="64" y="300" width="200" height="10" rx="5" fill="#a78bfa"/>
+    <circle cx="88" cy="360" r="22" fill="#f87171"/>
+    <circle cx="140" cy="360" r="8" fill="#334155"/>
+    <circle cx="190" cy="360" r="8" fill="#334155"/>
+    <rect x="240" y="352" width="40" height="16" rx="8" fill="#334155"/>
+    <rect x="480" y="352" width="64" height="16" rx="8" fill="#22d3ee"/>
+  </g>
+</svg>

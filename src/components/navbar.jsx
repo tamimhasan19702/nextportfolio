@@ -1,198 +1,143 @@
 /** @format */
-"use client"; // This directive marks the file as a Client Component
+"use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { FaGithub } from "react-icons/fa";
 import { IoLogoLinkedin } from "react-icons/io";
 import { SiGmail } from "react-icons/si";
-import NavLink from "./navLink";
+import { Briefcase, Home, Mail, MoreHorizontal, User } from "lucide-react";
 import Logo from "./logo";
-import { motion } from "framer-motion";
 
-const links = [
+const tabs = [
+  { url: "/", label: "Home", Icon: Home },
+  { url: "/portfolio", label: "Portfolio", Icon: Briefcase },
+  { url: "/about", label: "About", Icon: User },
+  { url: "/contact", label: "Contact", Icon: Mail },
+];
+
+const socials = [
   {
-    url: "/",
-    title: "Home",
+    href: "https://github.com/tamimhasan19702",
+    Icon: FaGithub,
+    label: "GitHub",
   },
   {
-    url: "/portfolio",
-    title: "Portfolio",
+    href: "https://www.linkedin.com/in/tareq-monower-tamim/",
+    Icon: IoLogoLinkedin,
+    label: "LinkedIn",
   },
-  {
-    url: "/about",
-    title: "About",
-  },
-  {
-    url: "/contact",
-    title: "Contact",
-  },
+  { href: "mailto:tareqmonower21@gmail.com", Icon: SiGmail, label: "Email" },
 ];
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState(null);
-
-  // framer motion variants
-  const topVariants = {
-    closed: {
-      rotate: 0,
-    },
-    opened: {
-      rotate: 45,
-
-      backgroundColor: "rgb(255, 255, 255)",
-    },
-  };
-
-  const centerVariants = {
-    closed: {
-      opacity: 1,
-    },
-    opened: {
-      opacity: 0,
-    },
-  };
-
-  const bottomVariants = {
-    closed: {
-      rotate: 0,
-    },
-    opened: {
-      rotate: -45,
-
-      backgroundColor: "rgb(255, 255, 255)",
-    },
-  };
-
-  const listVariants = {
-    closed: {
-      x: "100vw",
-    },
-    opened: {
-      x: 0,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const listItemVariants = {
-    closed: {
-      x: -10,
-      opacity: 0,
-    },
-    opened: {
-      x: 0,
-      opacity: 1,
-    },
-  };
+  const pathName = usePathname();
+  const [socialsOpen, setSocialsOpen] = useState(false);
 
   return (
-    <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 z-50">
-      {/* Logo */}
-      <Logo url={"/"} />
-
-      <div>
-        {/* Menu button */}
-        <div className="md:hidden">
-          <button
-            className="w-10 h-8 flex flex-col justify-between z-40 relative"
-            onClick={() => setOpen((prev) => !prev)}>
-            <motion.div
-              variants={topVariants}
-              animate={open ? "opened" : "closed"}
-              className="w-10 h-1 bg-black rounded origin-left"></motion.div>
-            <motion.div
-              variants={centerVariants}
-              animate={open ? "opened" : "closed"}
-              className="w-10 h-1 bg-black rounded"></motion.div>
-            <motion.div
-              variants={bottomVariants}
-              animate={open ? "opened" : "closed"}
-              className="w-10 h-1 bg-black rounded origin-left"></motion.div>
-          </button>
+    <>
+      {/* Header */}
+      <div className="relative h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
+        {/* Mobile: centered logo */}
+        <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Logo url={"/"} />
         </div>
-
-        {/* Mobile Menu List */}
-        {open && (
-          <motion.div
-            variants={listVariants}
-            initial="closed"
-            animate="opened"
-            className="absolute top-0 right-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl z-30">
-            {links.map((link) => (
-              <motion.div key={link.url} variants={listItemVariants}>
-                <Link
-                  href={link.url}
-                  className={`p-2 rounded-md transition-all duration-300 ${
-                    activeLink === link.url
-                      ? "bg-white text-black px-5 py-2"
-                      : "text-white hover:bg-white hover:text-black hover:px-6 hover:py-2"
-                  }`}
-                  onClick={() => setActiveLink(link.url)}>
-                  {link.title}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div className="flex gap-6 mt-4" variants={listItemVariants}>
-              <Link
-                href="https://github.com/tamimhasan19702"
-                target="_blank"
-                rel="noopener noreferrer">
-                <FaGithub size={35} color="white" />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/tareq-monower-tamim/"
-                target="_blank"
-                rel="noopener noreferrer">
-                <IoLogoLinkedin size={35} color="white" />
-              </Link>
-              <Link
-                href="mailto:tareqmonower21@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer">
-                <SiGmail size={35} />
-              </Link>
-            </motion.div>
-          </motion.div>
-        )}
-
-        {/* Desktop Menu List */}
-        <div className="hidden md:flex gap-6 items-center">
-          <div className="hidden md:flex gap-8 items-center">
-            {links.map((link) => {
-              return (
-                <NavLink key={link.url} url={link.url} title={link.title} />
-              );
-            })}
-          </div>
-
-          {/* Social Icons */}
-          <div className="hidden md:flex gap-4">
+        {/* Desktop: logo left */}
+        <div className="hidden md:flex items-center">
+          <Logo url={"/"} />
+        </div>
+        {/* Desktop: socials right */}
+        <div className="hidden md:flex items-center gap-2 ml-auto">
+          {socials.map(({ href, Icon, label }) => (
             <Link
-              href="https://github.com/tamimhasan19702"
+              key={href}
+              href={href}
               target="_blank"
-              rel="noopener noreferrer">
-              <FaGithub size={25} />
+              rel="noopener noreferrer"
+              title={label}
+              className="p-2 rounded-md transition-all duration-300 hover:bg-black hover:text-white">
+              <Icon size={20} />
             </Link>
-            <Link
-              href="https://www.linkedin.com/in/tareq-monower-tamim/"
-              target="_blank"
-              rel="noopener noreferrer">
-              <IoLogoLinkedin size={25} />
-            </Link>
-            <Link
-              href="mailto:tareqmonower21@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer">
-              <SiGmail size={25} />
-            </Link>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
+
+      {/* Floating bottom tray */}
+      <nav className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 rounded-full border border-zinc-200 bg-white/85 backdrop-blur p-1.5 sm:p-2 shadow-lg max-w-[calc(100vw-2rem)]">
+        {tabs.map(({ url, label, Icon }) => {
+          const active =
+            pathName === url ||
+            (url === "/portfolio" && pathName.startsWith("/portfolio"));
+          return (
+            <Link
+              key={url}
+              href={url}
+              title={label}
+              className={`flex items-center gap-2 rounded-full p-0 sm:px-4 sm:py-2 transition-all duration-300 ${
+                active
+                  ? "bg-black text-white"
+                  : "text-zinc-600 hover:bg-zinc-100 hover:text-black"
+              }`}>
+              <Icon size={18} strokeWidth={active ? 2.5 : 2} />
+              <span className="hidden sm:inline text-sm font-bold whitespace-nowrap">
+                {label}
+              </span>
+            </Link>
+          );
+        })}
+
+        {/* Socials (mobile only) */}
+        <div className="md:hidden flex items-center">
+          <span className="mx-1 h-6 w-px bg-zinc-200" />
+          <div className="relative">
+          <AnimatePresence>
+            {socialsOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -12, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto" }}
+                exit={{ opacity: 0, y: -12, height: 0 }}
+                transition={{ duration: 0.25 }}
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-1.5 rounded-xl border border-zinc-200 bg-white p-2 shadow-lg">
+                {socials.map(({ href, Icon, label }, i) => (
+                  <motion.div
+                    key={href}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ delay: i * 0.06 }}>
+                    <Link
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={label}
+                      onClick={() => setSocialsOpen(false)}
+                      className="flex items-center justify-center p-2 w-10 h-10 rounded-full text-zinc-600 transition-all duration-300 hover:bg-zinc-100 hover:text-black">
+                      <Icon size={18} />
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <button
+            aria-label="More links"
+            aria-expanded={socialsOpen}
+            onClick={() => setSocialsOpen((prev) => !prev)}
+            className={`p-2 rounded-full transition-all duration-300 ${
+              socialsOpen
+                ? "bg-black text-white"
+                : "text-zinc-600 hover:bg-zinc-100 hover:text-black"
+            }`}>
+            <MoreHorizontal size={18} />
+          </button>
+        </div>
+        </div>
+      </nav>
+    </>
   );
 };
 
