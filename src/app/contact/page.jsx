@@ -57,7 +57,7 @@ const ContactPage = () => {
         />
       </div>
 
-      <div className="flex-1 flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-16 lg:pb-0">
+      <div className="flex-1 flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-24 sm:pb-35 lg:pb-40">
         {/* Left side - Typewriter animation */}
         <motion.div
           ref={leftRef}

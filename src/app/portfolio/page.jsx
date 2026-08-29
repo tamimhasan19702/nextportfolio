@@ -2,10 +2,10 @@
 "use client";
 
 import { motion, useScroll } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Brain from "@/components/brainSvg";
+import ProjectSlider from "@/components/projectSlider";
 import { projects } from "@/data/projects";
 import { Card, CardContent } from "@/components/ui/card";
 import PageHeader from "@/components/pageHeader";
@@ -24,7 +24,7 @@ const PortfolioPage = () => {
       {/* CONTAINER */}
       <div className="lg:flex">
         {/* PROJECTS CONTAINER */}
-        <div className="flex flex-col gap-10 md:gap-14 p-4 sm:p-8 md:p-12 lg:p-20 xl:px-24 2xl:px-32 lg:w-3/5 xl:w-3/5 z-30 pb-24">
+        <div className="flex flex-col gap-10 md:gap-14 p-4 sm:p-8 md:p-12 lg:p-20 xl:px-24 2xl:px-32 lg:w-3/5 xl:w-3/5 z-30 pb-24 sm:pb-35 lg:pb-40">
           {/* HEADER */}
           <PageHeader
             eyebrow={`Portfolio / ${String(projects.length).padStart(2, "0")} Projects`}
@@ -49,12 +49,12 @@ const PortfolioPage = () => {
                   project.span
                 }`}>
                 <Card className="relative h-full w-full overflow-hidden rounded-xl bg-neutral-900 p-0 ring-1 ring-zinc-900">
-                  <Image
-                    src={project.img}
+                  <ProjectSlider
+                    images={project.images}
                     alt={project.title}
-                    fill
+                    dotPosition="top-center"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover grayscale contrast-[1.05] opacity-90 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
+                    imageClassName="object-cover grayscale contrast-[1.05] opacity-90 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
 

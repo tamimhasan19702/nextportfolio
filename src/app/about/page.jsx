@@ -5,9 +5,9 @@ import Brain from '@/components/brainSvg';
 import Education from '@/components/education';
 import Experience from '@/components/experience';
 import Hobbies from '@/components/hobbies';
+import PageHeader from '@/components/pageHeader';
 import ScrollDownArrow from '@/components/scrollDownArrow';
 import Skills from '@/components/skills';
-import PageHeader from '@/components/pageHeader';
 import { motion, useScroll } from 'framer-motion';
 import Image from 'next/image';
 
@@ -23,7 +23,7 @@ const AboutPage = () => {
 			{/* CONTAINER */}
 			<div className="lg:flex">
 {/* TEXT CONTAINER */}
-			<div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-16 md:gap-24 lg:gap-32 xl:gap-40 lg:w-3/5 lg:pr-0 xl:w-3/5 z-30">
+			<div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-16 md:gap-24 lg:gap-32 xl:gap-40 lg:w-3/5 lg:pr-0 xl:w-3/5 z-30 pb-24 sm:pb-35 lg:pb-40">
 				{/* HEADER + SIGNATURE */}
 				<div className="flex flex-col gap-6">
 					<PageHeader
@@ -57,7 +57,7 @@ const AboutPage = () => {
 					<Skills />
 				</div>
 				{/* HOBBIES CONTAINER */}
-				<div className="flex flex-col gap-12 justify-center pb-48">
+				<div className="flex flex-col gap-12 justify-center">
 					<Hobbies />
 				</div>
 			</div>

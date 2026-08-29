@@ -4,16 +4,103 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { motion } from "framer-motion";
-import { ArrowLeft, ArrowUpRight, CheckCircle2, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ExternalLink, X } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { getProjectBySlug } from "@/data/projects";
+import ProjectSlider from "@/components/projectSlider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
+const Lightbox = ({ images, alt, index, onClose }) => {
+  const [current, setCurrent] = useState(index);
+
+  const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
+  const next = () => setCurrent((c) => (c + 1) % images.length);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onClose, images.length]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-black/95 p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${alt} full view`}>
+      <div
+        className="relative h-[70vh] w-full max-w-6xl overflow-hidden rounded-lg"
+        onClick={(e) => e.stopPropagation()}>
+        <Image
+          src={images[current]}
+          alt={alt}
+          fill
+          sizes="(max-width: 1024px) 100vw, 896px"
+          className="object-contain"
+        />
+      </div>
+
+      <div
+        className="flex items-center gap-4"
+        onClick={(e) => e.stopPropagation()}>
+        {images.length > 1 ? (
+          <>
+            <button
+              type="button"
+              onClick={prev}
+              aria-label="Previous image"
+              className="flex size-10 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:bg-white/10">
+              <ChevronLeft className="size-5" />
+            </button>
+            <span className="min-w-12 text-center font-mono text-sm text-white">
+              {current + 1} / {images.length}
+            </span>
+            <button
+              type="button"
+              onClick={next}
+              aria-label="Next image"
+              className="flex size-10 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:bg-white/10">
+              <ChevronRight className="size-5" />
+            </button>
+          </>
+        ) : (
+          <span className="font-mono text-sm text-white">1 / 1</span>
+        )}
+      </div>
+
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute top-4 right-4 flex size-10 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:bg-white/10">
+        <X className="size-5" />
+      </button>
+    </motion.div>
+  );
+};
 
 const CaseStudyPage = () => {
   const { slug } = useParams();
   const project = getProjectBySlug(slug);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   if (!project) {
     return (
@@ -36,7 +123,7 @@ const CaseStudyPage = () => {
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
-      <div className="mx-auto flex max-w-4xl flex-col gap-12 px-4 py-10 sm:px-8 sm:py-16">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 pt-10 pb-24 sm:px-8 sm:pt-16 sm:pb-35 lg:pb-40">
         {/* BACK */}
         <Link
           href="/portfolio"
@@ -62,113 +149,172 @@ const CaseStudyPage = () => {
           <p className="max-w-2xl text-base leading-relaxed text-zinc-600 sm:text-lg">
             {project.desc}
           </p>
-          <div className="flex flex-wrap gap-3 pt-1">
-            <Button size="lg" asChild>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                Live Demo
-                <ExternalLink />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <FaGithub />
-                GitHub
-              </a>
-            </Button>
-          </div>
         </header>
 
         {/* COVER */}
         <div className="relative aspect-video overflow-hidden rounded-xl bg-neutral-900 ring-1 ring-zinc-900">
-          <Image
-            src={project.img}
+          <ProjectSlider
+            images={project.images}
             alt={project.title}
-            fill
+            dotPosition="bottom-center"
             sizes="(max-width: 1024px) 100vw, 896px"
-            className="object-cover grayscale contrast-[1.05]"
+            imageClassName="object-cover grayscale contrast-[1.05]"
+            onImageClick={(i) => setLightboxIndex(i)}
           />
         </div>
 
-        {/* OVERVIEW / CHALLENGE */}
-        <section className="grid gap-10 lg:grid-cols-2">
-          <div className="space-y-3">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
-              Overview
-            </h2>
-            <h3 className="text-xl font-semibold tracking-tight">
-              What it does
-            </h3>
-            <p className="leading-relaxed text-zinc-600">{project.overview}</p>
-          </div>
-          <div className="space-y-3">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
-              The Challenge
-            </h2>
-            <h3 className="text-xl font-semibold tracking-tight">
-              What I solved
-            </h3>
-            <p className="leading-relaxed text-zinc-600">{project.challenge}</p>
-          </div>
-        </section>
+        {/* CONTENT + SIDEBAR */}
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
+          {/* CONTENT COLUMN */}
+          <div className="flex min-w-0 flex-col gap-12">
+            {/* OVERVIEW / CHALLENGE */}
+            <section className="grid gap-10 md:grid-cols-2">
+              <div className="space-y-3">
+                <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
+                  Overview
+                </h2>
+                <h3 className="text-xl font-semibold tracking-tight">
+                  What it does
+                </h3>
+                <p className="leading-relaxed text-zinc-600">{project.overview}</p>
+              </div>
+              <div className="space-y-3">
+                <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
+                  The Challenge
+                </h2>
+                <h3 className="text-xl font-semibold tracking-tight">
+                  What I solved
+                </h3>
+                <p className="leading-relaxed text-zinc-600">{project.challenge}</p>
+              </div>
+            </section>
 
-        {/* FEATURES */}
-        <section className="space-y-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
-            Features
-          </h2>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {project.features.map((feature) => (
-              <li
-                key={feature}
-                className="flex items-start gap-3 rounded-lg border border-zinc-200 p-4 text-sm leading-relaxed">
-                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-zinc-900" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* STACK */}
-        <section className="space-y-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
-            Tech Stack
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Badge
-                key={tag}
-                variant="outline"
-                className="rounded-full px-3 py-1 text-xs font-semibold">
-                {tag}
-              </Badge>
-            ))}
+            {/* FEATURES */}
+            <section className="space-y-4">
+              <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
+                Features
+              </h2>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {project.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-3 rounded-lg border border-zinc-200 p-4 text-sm leading-relaxed">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-zinc-900" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
-        </section>
+
+          {/* SIDEBAR */}
+          <aside className="flex flex-col gap-8 rounded-2xl border border-zinc-200 bg-zinc-50/60 p-6 lg:sticky lg:top-8">
+            {/* LINKS */}
+            <div className="space-y-3">
+              <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
+                Links
+              </h2>
+              <div className="flex flex-col gap-2">
+                <Button size="lg" className="w-full" asChild>
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    Live Demo
+                    <ExternalLink />
+                  </a>
+                </Button>
+                <Button size="lg" variant="outline" className="w-full" asChild>
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <FaGithub />
+                    GitHub
+                  </a>
+                </Button>
+                {project.additionalLinks?.length > 0 &&
+                  project.additionalLinks.map((link) => (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2.5 text-sm font-medium transition-colors hover:bg-zinc-100">
+                      <span className="flex items-center gap-2">
+                        <ExternalLink className="size-4 text-zinc-400" />
+                        {link.label}
+                      </span>
+                      <ArrowUpRight className="size-4 text-zinc-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  ))}
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* TECH STACK */}
+            <div className="space-y-3">
+              <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">
+                Tech Stack
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    className="rounded-full px-3 py-1 text-xs font-semibold">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* CONTACT CTA */}
+            <div className="flex flex-col gap-4 rounded-xl bg-zinc-900 p-5 text-white">
+              <div className="space-y-1">
+                <h3 className="font-bold tracking-tight">
+                  Have a project like this?
+                </h3>
+                <p className="text-sm text-zinc-400">
+                  Let&apos;s talk about building something together.
+                </p>
+              </div>
+              <Button
+                asChild
+                className="w-full gap-1.5 bg-white text-zinc-900 hover:bg-zinc-200">
+                <Link href="/contact">
+                  Contact me
+                  <ArrowUpRight className="size-4" />
+                </Link>
+              </Button>
+            </div>
+          </aside>
+        </div>
 
         {/* FOOTER */}
         <footer className="flex flex-wrap items-center justify-between gap-6 border-t border-zinc-200 pt-8">
-          <div className="flex flex-wrap gap-3">
-            <Button asChild>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                Live Demo
-                <ArrowUpRight />
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <FaGithub />
-                GitHub
-              </a>
-            </Button>
-          </div>
           <Link
             href="/portfolio"
             className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900">
-            All Projects
+            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+            Back to Portfolio
+          </Link>
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900">
+            Contact me
             <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </footer>
       </div>
+
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <Lightbox
+            images={project.images}
+            alt={project.title}
+            index={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

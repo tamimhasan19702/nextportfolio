@@ -18,12 +18,14 @@ const TransitionProvider = ({ children }) => {
 					transition={{ duration: 0.5, ease: 'easeOut' }}
 				/>
 				<motion.div
-					className="fixed m-auto top-0 bottom-0 left-0 right-0 text-white text-4xl sm:text-6xl lg:text-8xl cursor-default z-50 w-fit h-fit capitalize text-20px "
+					className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-6"
 					initial={{ opacity: 1 }}
 					animate={{ opacity: 0 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.9, ease: 'easeOut' }}>
-					{displayText}
+					<span className="text-center text-white text-4xl sm:text-6xl lg:text-8xl cursor-default capitalize">
+						{displayText}
+					</span>
 				</motion.div>
 				<motion.div
 					className="h-screen w-full fixed left-0 right-0 bg-black rounded-t-[100px] bottom-0 z-30"

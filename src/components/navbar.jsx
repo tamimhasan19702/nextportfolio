@@ -1,15 +1,15 @@
 /** @format */
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 
+import { Briefcase, Home, Mail, MoreHorizontal, User } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { IoLogoLinkedin } from "react-icons/io";
 import { SiGmail } from "react-icons/si";
-import { Briefcase, Home, Mail, MoreHorizontal, User } from "lucide-react";
 import Logo from "./logo";
 
 const tabs = [
@@ -100,7 +100,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0, height: "auto" }}
                 exit={{ opacity: 0, y: -12, height: 0 }}
                 transition={{ duration: 0.25 }}
-                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-2.5 shadow-lg">
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-2 rounded-2xl border border-zinc-200 bg-white p-2.5 shadow-lg">
                 {socials.map(({ href, Icon, label }, i) => (
                   <motion.div
                     key={href}

@@ -35,7 +35,7 @@ const Homepage = () => {
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
-      <div className="flex flex-col gap-8 lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-24 lg:pb-4 lg:min-h-[calc(100vh-6rem)]">
+      <div className="flex flex-col gap-8 lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-24 sm:pb-35 lg:pb-40 lg:min-h-[calc(100vh-6rem)]">
         {/* Image container */}
         <div className="relative h-[40vh] lg:h-auto lg:w-1/2">
           <Image
@@ -46,7 +46,7 @@ const Homepage = () => {
           />
         </div>
         {/* Text Container */}
-        <div className="lg:w-1/2 flex flex-col gap-6 md:gap-8 items-center justify-center py-10 lg:py-2">
+        <div className="lg:w-1/2 flex flex-col gap-6 md:gap-8 items-center justify-center">
           {/* title */}
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center">
             Crafting Digital Experiences, Designing Tomorrow
