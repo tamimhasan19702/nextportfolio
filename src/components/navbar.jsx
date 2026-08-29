@@ -66,7 +66,7 @@ const Navbar = () => {
       </div>
 
       {/* Floating bottom tray */}
-      <nav className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 rounded-full border border-zinc-200 bg-white/85 backdrop-blur p-1.5 sm:p-2 shadow-lg max-w-[calc(100vw-2rem)]">
+      <nav className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-2 rounded-full border border-zinc-200 bg-white/85 backdrop-blur p-2 sm:p-2.5 shadow-lg max-w-[calc(100vw-2rem)]">
         {tabs.map(({ url, label, Icon }) => {
           const active =
             pathName === url ||
@@ -76,7 +76,7 @@ const Navbar = () => {
               key={url}
               href={url}
               title={label}
-              className={`flex items-center gap-2 rounded-full p-0 sm:px-4 sm:py-2 transition-all duration-300 ${
+              className={`flex items-center gap-2 rounded-full p-2 sm:px-4 sm:py-2 transition-all duration-300 ${
                 active
                   ? "bg-black text-white"
                   : "text-zinc-600 hover:bg-zinc-100 hover:text-black"
@@ -100,14 +100,15 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0, height: "auto" }}
                 exit={{ opacity: 0, y: -12, height: 0 }}
                 transition={{ duration: 0.25 }}
-                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-1.5 rounded-xl border border-zinc-200 bg-white p-2 shadow-lg">
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-2.5 shadow-lg">
                 {socials.map(({ href, Icon, label }, i) => (
                   <motion.div
                     key={href}
                     initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ delay: i * 0.06 }}>
+                    transition={{ delay: i * 0.06 }}
+                    className="w-full">
                     <Link
                       href={href}
                       target="_blank"

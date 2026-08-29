@@ -83,7 +83,7 @@ const Homepage = () => {
             />
 
             <Link href="/portfolio" className="group">
-              <button className="p-3 sm:p-4 rounded-lg ring-2 ring-black text-black transition-all duration-500 hover:bg-black hover:text-white font-bold hover:pl-6 sm:hover:pl-8 text-sm sm:text-base cursor-pointer">
+              <button className="p-3 sm:p-4 rounded-lg ring-2 ring-black text-black transition-all duration-500 hover:bg-black hover:text-white font-bold text-sm sm:text-base cursor-pointer">
                 View My Work
               </button>
             </Link>

@@ -1,7 +1,8 @@
 /** @format */
 "use client";
+import PageHeader from "@/components/pageHeader";
 import { motion, useInView } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ContactPage = () => {
   const [success, setSuccess] = useState(false);
@@ -31,32 +32,45 @@ const ContactPage = () => {
   };
 
   const typewriterText = [
-    "Let's Talk",
-    "Have a project in mind, or just want to say hi? I'd love to hear from you — I usually reply within 24 hours.",
     "Email: <a href=\"mailto:tareqmonower21@gmail.com\" style=\"color: #000; font-weight: bold; text-decoration: underline;\">tareqmonower21@gmail.com</a>",
-    "Phone/WhatsApp: <a href=\"tel:01714270830\" style=\"color: #000; font-weight: bold; text-decoration: underline;\">01714270830</a>",
+    "Phone/WhatsApp: <a href=\"https://wa.me/8801714270830?text=Hello%20there,%20Can%20we%20discuss%20about%20a%20project%20or%20a%20potential%20opportunity?\" style=\"color: #000; font-weight: bold; text-decoration: underline;\">01714270830</a>",
     "Location: Dhaka, Bangladesh",
     "Availability: Open to freelance & full-time roles",
     "Good work starts with a good conversation."
   ];
 
   return (
-    <div className="h-full">
-      <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-16 lg:pb-0">
+    <div className="h-full flex flex-col">
+      {/* HEADER */}
+      <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pt-8 sm:pt-10 lg:pt-16">
+        <PageHeader
+          eyebrow="Contact"
+          title={
+            <>
+              Let&apos;s Work{" "}
+              <span className="text-transparent [-webkit-text-stroke:1.5px_black]">
+                Together
+              </span>
+            </>
+          }
+          description="Have a project in mind, or just want to say hi? I'd love to hear from you — I usually reply within 24 hours."
+        />
+      </div>
+
+      <div className="flex-1 flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-16 lg:pb-0">
         {/* Left side - Typewriter animation */}
         <motion.div
           ref={leftRef}
-          className="lg:h-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 md:p-16 lg:p-24"
+          className="lg:h-full lg:w-1/2 flex items-center justify-start pt-6 pb-10 sm:pt-8 sm:pb-14 md:pt-12 md:pb-16"
           initial={{ opacity: 0, x: -50 }}
           animate={leftInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
           transition={{ duration: 0.8, ease: "easeOut" }}>
-          <div className="w-full max-w-xl text-left">
+          <div className="w-full max-w-xl text-left h-[30vh] sm:h-[34vh] overflow-hidden lg:h-auto">
             <Typewriter
               lines={typewriterText}
               className="text-base sm:text-lg lg:text-xl font-mono leading-relaxed"
               speed={10}
               startDelay={100}
-              headerClassName="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
             />
           </div>
         </motion.div>
@@ -147,7 +161,7 @@ const ContactPage = () => {
   );
 };
 
-const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0, headerClassName = "" }) => {
+const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0 }) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -169,10 +183,7 @@ const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0, headerC
 
       for (let i = 0; i < lines.length; i++) {
         if (cancelled) return;
-        const isFirstLine = i === 0;
-        const prefix = isFirstLine ? `<h1 class="${headerClassName}">` : "";
-        const suffix = isFirstLine ? "</h1>" : "";
-        await write(prefix + lines[i] + suffix);
+        await write(lines[i]);
         if (i < lines.length - 1) {
           t += "\n";
           setText(t);
@@ -185,7 +196,7 @@ const Typewriter = ({ lines, className = "", speed = 50, startDelay = 0, headerC
     return () => {
       cancelled = true;
     };
-  }, [lines, speed, startDelay, headerClassName]);
+  }, [lines, speed, startDelay]);
 
   return (
     <div className={className} style={{ fontFamily: "var(--font-mono, monospace)", whiteSpace: "pre-wrap" }}>

@@ -8,6 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 import Brain from "@/components/brainSvg";
 import { projects } from "@/data/projects";
 import { Card, CardContent } from "@/components/ui/card";
+import PageHeader from "@/components/pageHeader";
 
 const formatIndex = (id) => String(id).padStart(2, "0");
 
@@ -25,22 +26,18 @@ const PortfolioPage = () => {
         {/* PROJECTS CONTAINER */}
         <div className="flex flex-col gap-10 md:gap-14 p-4 sm:p-8 md:p-12 lg:p-20 xl:px-24 2xl:px-32 lg:w-3/5 xl:w-3/5 z-30 pb-24">
           {/* HEADER */}
-          <header className="flex flex-col gap-5">
-            <span className="w-fit rounded-full bg-zinc-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white">
-              Portfolio / {String(projects.length).padStart(2, "0")} Projects
-            </span>
-            <h1 className="text-5xl sm:text-6xl lg:text-5xl xl:text-6xl font-bold tracking-tighter leading-[0.95]">
-              Selected{" "}
-              <span className="text-transparent [-webkit-text-stroke:1.5px_black]">
-                Work
-              </span>
-            </h1>
-            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-zinc-500">
-              A curated collection of products I&apos;ve designed and built —
-              commerce, publishing, social, and productivity. Click any card to
-              open its case study.
-            </p>
-          </header>
+          <PageHeader
+            eyebrow={`Portfolio / ${String(projects.length).padStart(2, "0")} Projects`}
+            title={
+              <>
+                Selected{" "}
+                <span className="text-transparent [-webkit-text-stroke:1.5px_black]">
+                  Work
+                </span>
+              </>
+            }
+            description="A curated collection of products I've designed and built — commerce, publishing, social, and productivity. Click any card to open its case study."
+          />
 
           {/* BENTO GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 lg:auto-rows-[15rem] gap-4 lg:gap-5">
