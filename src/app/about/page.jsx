@@ -1,23 +1,18 @@
 /** @format */
 
 'use client';
-import Biography from '@/components/biography';
 import Brain from '@/components/brainSvg';
+import Education from '@/components/education';
 import Experience from '@/components/experience';
+import Hobbies from '@/components/hobbies';
+import ScrollDownArrow from '@/components/scrollDownArrow';
 import Skills from '@/components/skills';
-import { motion, useInView, useScroll } from 'framer-motion';
+import PageHeader from '@/components/pageHeader';
+import { motion, useScroll } from 'framer-motion';
 import Image from 'next/image';
-import { useRef } from 'react';
 
 const AboutPage = () => {
 	const { scrollYProgress } = useScroll();
-
-	const skillRef = useRef();
-	// const isSkillRefInView = useInView(skillRef, {once:true});
-	const isSkillRefInView = useInView(skillRef, { margin: '-100px' });
-
-	const experienceRef = useRef();
-	const isExperienceRefInView = useInView(experienceRef, { margin: '-100px' });
 
 	return (
 		<motion.div
@@ -27,19 +22,45 @@ const AboutPage = () => {
 			transition={{ duration: 1 }}>
 			{/* CONTAINER */}
 			<div className="lg:flex">
-				{/* TEXT CONTAINER */}
-				<div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-3/5 lg:pr-0 xl:w-3/5 z-30">
-					{/* BIOGRAPHY CONTAINER */}
-					<Biography />
-					{/* SKILLS CONTAINER */}
-					<div className="flex flex-col gap-12 justify-center" ref={skillRef}>
-						<Skills isSkillRefInView={isSkillRefInView} />
+{/* TEXT CONTAINER */}
+			<div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-16 md:gap-24 lg:gap-32 xl:gap-40 lg:w-3/5 lg:pr-0 xl:w-3/5 z-30">
+				{/* HEADER + SIGNATURE */}
+				<div className="flex flex-col gap-6">
+					<PageHeader
+						eyebrow="About"
+						title={
+							<>
+								Tareq{" "}
+								<span className="text-transparent [-webkit-text-stroke:1.5px_black]">
+									Monower
+								</span>
+							</>
+						}
+						description="Full Stack Developer crafting fast, accessible, and scalable web experiences with React, Next.js, TypeScript, and modern tooling."
+					/>
+					<div className="self-end">
+						<Image src={"/signature.png"} alt="Signature" width={200} height={200} />
 					</div>
-					{/* EXPERIENCE CONTAINER */}
-					<div className="flex flex-col gap-12 justify-center pb-48" ref={experienceRef}>
-						<Experience isExperienceRefInView={isExperienceRefInView} />
-					</div>
+					{/* SCROLL DOWN ARROW */}
+					<ScrollDownArrow />
 				</div>
+				{/* EDUCATION & CERTIFICATIONS CONTAINER */}
+				<div className="flex flex-col gap-12 justify-center">
+					<Education />
+				</div>
+				{/* EXPERIENCE CONTAINER */}
+				<div className="flex flex-col gap-12 justify-center">
+					<Experience />
+				</div>
+				{/* SKILLS CONTAINER */}
+				<div className="flex flex-col gap-12 justify-center">
+					<Skills />
+				</div>
+				{/* HOBBIES CONTAINER */}
+				<div className="flex flex-col gap-12 justify-center pb-48">
+					<Hobbies />
+				</div>
+			</div>
 				{/* SVG CONTAINER */}
 				<div className="hidden lg:block lg:w-2/5 xl:w-2/5 relative z-50">
 					<div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
