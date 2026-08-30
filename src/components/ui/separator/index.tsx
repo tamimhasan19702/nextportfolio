@@ -4,13 +4,14 @@ import * as React from "react"
 import { Separator as SeparatorPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
+import type { SeparatorProps } from "./interface"
 
 function Separator({
   className,
   orientation = "horizontal",
   decorative = true,
   ...props
-}) {
+}: SeparatorProps) {
   return (
     <SeparatorPrimitive.Root
       data-slot="separator"
