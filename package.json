@@ -1,5 +1,5 @@
 {
-  "name": "lama-dev-portfolio-starter",
+  "name": "Tareq-Portfolio",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,13 +8,16 @@
     "build": "next build",
     "start": "next start",
     "generate:types": "payload generate:types",
-    "generate:importmap": "payload generate:importmap"
+    "generate:importmap": "payload generate:importmap",
+    "seed": "payload run scripts/seed-work.ts",
+    "migrate": "payload run scripts/migrate-work.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@payloadcms/db-mongodb": "^3.88.0",
     "@payloadcms/next": "^3.88.0",
     "@payloadcms/richtext-lexical": "^3.88.0",
+    "@payloadcms/storage-s3": "3.88.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^13.1.0",
@@ -31,9 +34,14 @@
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "3.1121.0",
     "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.2.12",
+    "mongodb": "^7.6.0",
     "postcss": "^8.5.0",
     "tailwindcss": "^4.3.3"
   }
