@@ -31,6 +31,9 @@ export const Home: GlobalConfig = {
         {
           name: 'buttons',
           type: 'array',
+          admin: {
+            position: 'sidebar',
+          },
           fields: [
             {
               name: 'label',

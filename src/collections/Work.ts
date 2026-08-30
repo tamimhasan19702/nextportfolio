@@ -145,7 +145,7 @@ export const Work: CollectionConfig = {
           type: 'text',
         },
       ],
-       admin: {
+      admin: {
         position: 'sidebar',
       },
     },

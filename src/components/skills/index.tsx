@@ -2,7 +2,11 @@
 
 import { motion } from "framer-motion";
 
-const Skills = () => {
+const Skills = ({ skills = [] }: { skills?: string[] }) => {
+  const list = skills.filter(Boolean);
+  if (list.length === 0) {
+    return null
+  }
   return (
     <>
       {/* SKILL TITLE */}
@@ -21,25 +25,7 @@ const Skills = () => {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex gap-4 flex-wrap">
-        {[
-          "JavaScript",
-          "ReactJS",
-          "ReactNative",
-          "NextJS",
-          "Node/Express",
-          "MongoDB",
-          "MySql",
-          "PHP",
-          "WordPress",
-          "Tailwind CSS",
-          "SCSS",
-          "Firebase",
-          "Redux",
-          "Framer Motion",
-          "Rest API",
-          "HTML",
-          "CSS",
-        ].map((skill) => (
+        {list.map((skill) => (
           <div
             key={skill}
             className="rounded px-4 py-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:scale-110">

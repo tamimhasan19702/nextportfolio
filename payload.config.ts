@@ -8,9 +8,15 @@ import { fileURLToPath } from 'url'
 import { Media } from './src/collections/Media'
 import { Users } from './src/collections/Users'
 import { Work } from './src/collections/Work'
+import { Education } from './src/collections/Education'
+import { Certification } from './src/collections/Certification'
+import { Experience } from './src/collections/Experience'
+import { Hobbies } from './src/collections/Hobbies'
 import { Home } from './src/globals/Home'
 import { Navbar } from './src/globals/Navbar'
 import { Portfolio } from './src/globals/Portfolio'
+import { About } from './src/globals/About'
+import { Contact } from './src/globals/Contact'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,9 +24,12 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: 'users',
+    importMap: {
+      baseDir: path.resolve(dirname, 'src'),
+    },
   },
-  collections: [Users, Media, Work],
-  globals: [Home, Navbar, Portfolio],
+  collections: [Users, Media, Work, Education, Certification, Experience, Hobbies],
+  globals: [Home, Navbar, Portfolio, About, Contact],
   plugins: [
     ...(process.env.S3_BUCKET
       ? [

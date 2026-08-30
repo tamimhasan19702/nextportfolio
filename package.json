@@ -10,7 +10,8 @@
     "generate:types": "payload generate:types",
     "generate:importmap": "payload generate:importmap",
     "seed": "payload run scripts/seed-work.ts",
-    "migrate": "payload run scripts/migrate-work.ts"
+    "migrate": "payload run scripts/migrate-work.ts",
+    "migrate:about": "payload run scripts/migrate-about.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -18,6 +19,7 @@
     "@payloadcms/next": "^3.88.0",
     "@payloadcms/richtext-lexical": "^3.88.0",
     "@payloadcms/storage-s3": "3.88.0",
+    "@payloadcms/ui": "3.88.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^13.1.0",

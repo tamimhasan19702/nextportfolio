@@ -70,6 +70,10 @@ export interface Config {
     users: User;
     media: Media;
     work: Work;
+    education: Education;
+    certification: Certification;
+    experience: Experience;
+    hobbies: Hobby;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +84,10 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     work: WorkSelect<false> | WorkSelect<true>;
+    education: EducationSelect<false> | EducationSelect<true>;
+    certification: CertificationSelect<false> | CertificationSelect<true>;
+    experience: ExperienceSelect<false> | ExperienceSelect<true>;
+    hobbies: HobbiesSelect<false> | HobbiesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -93,11 +101,15 @@ export interface Config {
     home: Home;
     navbar: Navbar;
     portfolio: Portfolio;
+    about: About;
+    contact: Contact;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
     navbar: NavbarSelect<false> | NavbarSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
   };
   locale: null;
   widgets: {
@@ -268,6 +280,89 @@ export interface Work {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "education".
+ */
+export interface Education {
+  id: string;
+  _order?: string | null;
+  degree: string;
+  institution: string;
+  description?: string | null;
+  startDate: string;
+  /**
+   * Leave empty for "Present"
+   */
+  endDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "certification".
+ */
+export interface Certification {
+  id: string;
+  _order?: string | null;
+  name: string;
+  institution: string;
+  /**
+   * Verifiable credential ID (optional)
+   */
+  certificateId?: string | null;
+  date: string;
+  /**
+   * Public certificate URL link (optional)
+   */
+  link?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experience".
+ */
+export interface Experience {
+  id: string;
+  _order?: string | null;
+  designation: string;
+  description?: string | null;
+  startDate: string;
+  /**
+   * Leave empty for "Present"
+   */
+  endDate?: string | null;
+  company: string;
+  companyLocation?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hobbies".
+ */
+export interface Hobby {
+  id: string;
+  _order?: string | null;
+  icon:
+    | 'Plane'
+    | 'Camera'
+    | 'Gamepad2'
+    | 'Music'
+    | 'BookOpen'
+    | 'Dumbbell'
+    | 'Palette'
+    | 'Coffee'
+    | 'Bike'
+    | 'Code'
+    | 'Film'
+    | 'Pencil';
+  text: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -301,6 +396,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'work';
         value: string | Work;
+      } | null)
+    | ({
+        relationTo: 'education';
+        value: string | Education;
+      } | null)
+    | ({
+        relationTo: 'certification';
+        value: string | Certification;
+      } | null)
+    | ({
+        relationTo: 'experience';
+        value: string | Experience;
+      } | null)
+    | ({
+        relationTo: 'hobbies';
+        value: string | Hobby;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -432,6 +543,61 @@ export interface WorkSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "education_select".
+ */
+export interface EducationSelect<T extends boolean = true> {
+  _order?: T;
+  degree?: T;
+  institution?: T;
+  description?: T;
+  startDate?: T;
+  endDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "certification_select".
+ */
+export interface CertificationSelect<T extends boolean = true> {
+  _order?: T;
+  name?: T;
+  institution?: T;
+  certificateId?: T;
+  date?: T;
+  link?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experience_select".
+ */
+export interface ExperienceSelect<T extends boolean = true> {
+  _order?: T;
+  designation?: T;
+  description?: T;
+  startDate?: T;
+  endDate?: T;
+  company?: T;
+  companyLocation?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hobbies_select".
+ */
+export interface HobbiesSelect<T extends boolean = true> {
+  _order?: T;
+  icon?: T;
+  text?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -598,6 +764,93 @@ export interface Portfolio {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: string;
+  overline?: string | null;
+  title?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Optional signature image
+   */
+  signature?: (string | null) | Media;
+  education?: (string | Education)[] | null;
+  certifications?: (string | Certification)[] | null;
+  experiences?: (string | Experience)[] | null;
+  /**
+   * Skills shown in the sidebar
+   */
+  skills?:
+    | {
+        skill?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  hobbies?: (string | Hobby)[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: string;
+  overline?: string | null;
+  title?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Contact details shown on the left (email, phone, location, availability)
+   */
+  moreInfo?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
@@ -661,6 +914,42 @@ export interface PortfolioSelect<T extends boolean = true> {
   ctaText?: T;
   ctaLink?: T;
   selectedWorks?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  overline?: T;
+  title?: T;
+  description?: T;
+  signature?: T;
+  education?: T;
+  certifications?: T;
+  experiences?: T;
+  skills?:
+    | T
+    | {
+        skill?: T;
+        id?: T;
+      };
+  hobbies?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  overline?: T;
+  title?: T;
+  description?: T;
+  moreInfo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

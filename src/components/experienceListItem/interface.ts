@@ -3,5 +3,5 @@ export interface ExperienceListItemProps {
   desc?: string;
   time?: string;
   company?: string;
-  companyUrl?: string;
+  companyLocation?: string;
 }
