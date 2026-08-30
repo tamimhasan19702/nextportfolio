@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    work: Work;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    work: WorkSelect<false> | WorkSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +89,16 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    home: Home;
+    navbar: Navbar;
+    portfolio: Portfolio;
+  };
+  globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
+    navbar: NavbarSelect<false> | NavbarSelect<true>;
+    portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -167,6 +177,97 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work".
+ */
+export interface Work {
+  id: string;
+  _order?: string | null;
+  slug: string;
+  title: string;
+  category: string;
+  Date: string;
+  /**
+   * Short card description
+   */
+  excerpt?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Drag to reorder (max 12)
+   */
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Case study sections (overline, title, rich text)
+   */
+  sections?:
+    | {
+        overline?: string | null;
+        title?: string | null;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Add features as individual items
+   */
+  features?:
+    | {
+        feature?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  liveUrl?: string | null;
+  githubUrl?: string | null;
+  additionalLinks?:
+    | {
+        label?: string | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  sortOrder?: number | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -196,6 +297,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'work';
+        value: string | Work;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -282,6 +387,56 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work_select".
+ */
+export interface WorkSelect<T extends boolean = true> {
+  _order?: T;
+  slug?: T;
+  title?: T;
+  category?: T;
+  Date?: T;
+  excerpt?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  sections?:
+    | T
+    | {
+        overline?: T;
+        title?: T;
+        content?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  liveUrl?: T;
+  githubUrl?: T;
+  additionalLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  sortOrder?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -319,6 +474,196 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: string;
+  hero?: {
+    image?: (string | null) | Media;
+    title?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    buttons?:
+      | {
+          label?: string | null;
+          variant?: ('primary' | 'outline') | null;
+          linkType?: ('internal' | 'external') | null;
+          internalLink?: string | null;
+          externalUrl?: string | null;
+          showProgress?: boolean | null;
+          progressLabel?: string | null;
+          progressValue?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbar".
+ */
+export interface Navbar {
+  id: string;
+  logoText?: string | null;
+  logoSequences?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        label: string;
+        url: string;
+        target?: ('same' | 'new') | null;
+        icon:
+          | 'FaGithub'
+          | 'FaFacebook'
+          | 'FaTwitter'
+          | 'FaInstagram'
+          | 'FaYoutube'
+          | 'FaDribbble'
+          | 'FaBehance'
+          | 'FaPinterest'
+          | 'FaPhoneAlt'
+          | 'FaLink'
+          | 'FaDiscord'
+          | 'FaMedium'
+          | 'IoLogoLinkedin'
+          | 'IoLogoWhatsapp'
+          | 'IoLogoSlack'
+          | 'SiGmail'
+          | 'SiStackoverflow'
+          | 'SiDevdotto'
+          | 'SiReddit'
+          | 'FiMail'
+          | 'FiGlobe'
+          | 'FiExternalLink'
+          | 'HiOutlineLink';
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio".
+ */
+export interface Portfolio {
+  id: string;
+  eyebrowPrefix?: string | null;
+  title?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  /**
+   * Manually select up to 12 projects. If empty, shows all works (sorted by sortOrder, max 12).
+   */
+  selectedWorks?: (string | Work)[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        description?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              variant?: T;
+              linkType?: T;
+              internalLink?: T;
+              externalUrl?: T;
+              showProgress?: T;
+              progressLabel?: T;
+              progressValue?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbar_select".
+ */
+export interface NavbarSelect<T extends boolean = true> {
+  logoText?: T;
+  logoSequences?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        target?: T;
+        icon?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio_select".
+ */
+export interface PortfolioSelect<T extends boolean = true> {
+  eyebrowPrefix?: T;
+  title?: T;
+  description?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  selectedWorks?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
