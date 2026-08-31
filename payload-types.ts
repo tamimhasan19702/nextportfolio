@@ -366,7 +366,7 @@ export interface Hobby {
     | 'Code'
     | 'Film'
     | 'Pencil'
-    | 'Football';
+    | 'Volleyball';
   text: string;
   description?: string | null;
   updatedAt: string;

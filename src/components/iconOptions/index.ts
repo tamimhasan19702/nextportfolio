@@ -29,6 +29,7 @@ import {
   Code,
   Film,
   Pencil,
+  Volleyball,
 } from "lucide-react";
 import { HOBBY_ICONS } from "../../collections/hobbyIconOptions";
 
@@ -51,6 +52,7 @@ export const HOBBY_ICON_MAP: Record<
   Code,
   Film,
   Pencil,
+  Volleyball,
 };
 
 export const ICON_MAP: IconMap = {

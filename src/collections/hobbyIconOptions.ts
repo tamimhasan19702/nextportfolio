@@ -11,7 +11,7 @@ export const HOBBY_ICONS = [
   'Code',
   'Film',
   'Pencil',
-  'Football',
+  'Volleyball',
 ] as const
 
 export type HobbyIcon = (typeof HOBBY_ICONS)[number]

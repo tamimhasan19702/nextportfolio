@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tareq's Portfolio
+
+A personal portfolio website built with Next.js 16 and Payload CMS.
+
+## Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/)
+- **CMS:** [Payload CMS 3](https://payloadcms.com/)
+- **Database:** MongoDB
+- **Styling:** Tailwind CSS 4
+- **UI:** Radix UI, shadcn
+- **Animations:** Framer Motion
+- **Icons:** Lucide React, React Icons
+- **Storage:** AWS S3
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- MongoDB instance
+- AWS S3 bucket (for media storage)
+
+### Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local  # configure env vars
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Database Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+pnpm seed        # seed initial data
+pnpm migrate     # run migrations
+```
 
-## Learn More
+### Build & Deploy
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm build
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start dev server |
+| `pnpm build` | Production build |
+| `pnpm seed` | Seed database with sample data |
+| `pnpm migrate` | Run database migrations |
+| `pnpm generate:types` | Generate Payload TypeScript types |

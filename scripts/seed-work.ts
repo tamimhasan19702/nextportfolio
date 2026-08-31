@@ -289,7 +289,7 @@ for (let i = 0; i < projects.length; i++) {
         sections: p.sections.map((s) => ({ ...s, content: toLexical(s.content) })),
         images: imageIds.map((image) => ({ image })),
         features: p.features,
-        tags: p.tags.map((tag) => tagIdMap.get(tag)).filter(Boolean),
+        tags: p.tags.map((tag) => tagIdMap.get(tag)).filter((tag): tag is string => tag !== undefined),
         liveUrl: p.liveUrl,
         githubUrl: p.githubUrl,
         additionalLinks: p.additionalLinks,
