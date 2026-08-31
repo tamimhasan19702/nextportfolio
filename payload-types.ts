@@ -778,7 +778,7 @@ export interface Portfolio {
   ctaText?: string | null;
   ctaLink?: string | null;
   /**
-   * Manually select up to 12 projects. If empty, shows all works (sorted by sortOrder, max 12).
+   * Select projects to display. If empty, nothing is shown.
    */
   selectedWorks?: (string | Work)[] | null;
   updatedAt?: string | null;

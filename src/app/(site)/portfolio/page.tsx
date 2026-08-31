@@ -14,7 +14,6 @@ const PortfolioPage = async () => {
       collection: 'work',
       sort: 'sortOrder',
       depth: 1,
-      limit: 12,
     }),
     payload.findGlobal({ slug: 'portfolio', depth: 1 }),
   ])
@@ -30,7 +29,7 @@ const PortfolioPage = async () => {
             : allWorks.find((w) => w.id === sel.id)
         )
         .filter((w): w is Work => Boolean(w))
-    : allWorks
+    : []
 
   const worksWithYear: WorkWithYear[] = displayWorks.map(work => ({
     ...work,

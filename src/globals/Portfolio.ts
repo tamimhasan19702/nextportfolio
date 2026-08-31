@@ -40,9 +40,8 @@ export const Portfolio: GlobalConfig = {
       type: 'relationship',
       relationTo: 'work',
       hasMany: true,
-      maxRows: 12,
       admin: {
-        description: 'Manually select up to 12 projects. If empty, shows all works (sorted by sortOrder, max 12).',
+        description: 'Select projects to display. If empty, nothing is shown.',
       },
     },
   ],
