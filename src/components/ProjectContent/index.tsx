@@ -160,7 +160,7 @@ const ProjectContent = ({ project }: ProjectContentProps) => {
             </span>
             <span className="text-sm text-zinc-500">{project.year}</span>
             <span className="font-mono text-xs text-zinc-400">
-              / {String(project.sortOrder || project.id).padStart(2, "0")}
+              / {String(project.sortOrder ?? 0).padStart(2, "0")}
             </span>
           </div>
           <h1 className="text-4xl font-bold leading-none tracking-tight sm:text-6xl">
@@ -266,13 +266,12 @@ const ProjectContent = ({ project }: ProjectContentProps) => {
               </h2>
               <div className="flex flex-wrap gap-2">
                 {project.tags?.map((tagObj) => (
-                  <Badge
-                    key={tagObj.tag}
-                    variant="outline"
-                    className="rounded-full px-3 py-1 text-xs font-semibold"
+                  <span
+                    key={typeof tagObj === 'object' ? (tagObj as { id: string }).id : tagObj}
+                    className="inline-flex items-center rounded-full border border-zinc-300 bg-zinc-100 px-3 py-1 text-xs font-semibold text-zinc-700 transition-all duration-300 hover:scale-105 hover:border-zinc-900 hover:bg-zinc-900 hover:text-white hover:shadow-lg hover:shadow-zinc-900/20"
                   >
-                    {tagObj.tag}
-                  </Badge>
+                    {typeof tagObj === 'object' ? (tagObj as { name: string }).name : tagObj}
+                  </span>
                 ))}
               </div>
             </div>

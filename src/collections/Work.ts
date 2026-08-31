@@ -138,13 +138,9 @@ export const Work: CollectionConfig = {
     },
     {
       name: 'tags',
-      type: 'array',
-      fields: [
-        {
-          name: 'tag',
-          type: 'text',
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
       admin: {
         position: 'sidebar',
       },

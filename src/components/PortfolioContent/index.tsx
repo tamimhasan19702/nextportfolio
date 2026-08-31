@@ -92,7 +92,7 @@ const PortfolioContent = ({
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
 
                     <span className="absolute top-4 left-4 font-mono text-[0.65rem] tracking-widest text-white/70">
-                      {formatIndex(project.sortOrder || project.id)}
+                      {formatIndex(project.sortOrder ?? index + 1)}
                     </span>
                     <span className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-full border border-white/30 text-white/80 transition-all duration-300 group-hover:rotate-45 group-hover:border-white group-hover:bg-white group-hover:text-zinc-900">
                       <ArrowUpRight className="size-4" />
