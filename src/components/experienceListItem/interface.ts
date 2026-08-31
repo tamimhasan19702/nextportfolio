@@ -1,4 +1,5 @@
 export interface ExperienceListItemProps {
+  index: number;
   name: string;
   desc?: string;
   time?: string;
