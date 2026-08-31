@@ -39,8 +39,9 @@ const EducationRow = ({ e }: { e: Education }) => (
       <span className="shrink-0 text-xs tabular-nums text-zinc-400">{eduTime(e)}</span>
     </div>
     <p className="mt-1 text-sm text-zinc-500">{e.institution}</p>
-    {e.description && <p className="mt-1 text-sm text-zinc-400">{e.description}</p>}
-  </motion.div>
+{e.description && <p className="mt-1 text-sm text-zinc-400">{e.description}</p>}
+        {e.grade && <p className="mt-1 text-sm text-zinc-400">Grade: {e.grade}</p>}
+      </motion.div>
 );
 
 const CertificateCard = ({ c }: { c: Certification }) => (

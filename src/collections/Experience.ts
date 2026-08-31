@@ -18,10 +18,10 @@ export const Experience: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
-      name: 'description',
-      type: 'text',
-    },
+      {
+        name: 'description',
+        type: 'textarea',
+      },
     {
       name: 'startDate',
       type: 'date',
@@ -29,6 +29,7 @@ export const Experience: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: 'monthOnly',
+          displayFormat: 'MMM yyyy',
         },
       },
     },
@@ -38,6 +39,7 @@ export const Experience: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: 'monthOnly',
+          displayFormat: 'MMM yyyy',
         },
         description: 'Leave empty for "Present"',
       },

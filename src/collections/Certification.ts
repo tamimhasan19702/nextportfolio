@@ -37,6 +37,7 @@ export const Certification: CollectionConfig = {
       admin: {
         date: {
           pickerAppearance: 'monthOnly',
+          displayFormat: 'MMM yyyy',
         },
       },
     },

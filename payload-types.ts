@@ -289,10 +289,12 @@ export interface Education {
   institution: string;
   description?: string | null;
   startDate: string;
+  currentlyStudying?: boolean | null;
   /**
    * Leave empty for "Present"
    */
   endDate?: string | null;
+  grade?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -355,7 +357,8 @@ export interface Hobby {
     | 'Bike'
     | 'Code'
     | 'Film'
-    | 'Pencil';
+    | 'Pencil'
+    | 'Football';
   text: string;
   description?: string | null;
   updatedAt: string;
@@ -556,7 +559,9 @@ export interface EducationSelect<T extends boolean = true> {
   institution?: T;
   description?: T;
   startDate?: T;
+  currentlyStudying?: T;
   endDate?: T;
+  grade?: T;
   updatedAt?: T;
   createdAt?: T;
 }

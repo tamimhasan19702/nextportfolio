@@ -32,20 +32,34 @@ export const Education: CollectionConfig = {
       type: 'date',
       required: true,
       admin: {
-        date: {
-          pickerAppearance: 'monthOnly',
-        },
+          date: {
+            pickerAppearance: 'monthOnly',
+            displayFormat: 'MMM yyyy',
+          },
       },
+    },
+    {
+      name: 'currentlyStudying',
+      type: 'checkbox',
+      label: 'Currently studying',
     },
     {
       name: 'endDate',
       type: 'date',
+      required: false,
       admin: {
-        date: {
-          pickerAppearance: 'monthOnly',
-        },
+          date: {
+            pickerAppearance: 'monthOnly',
+            displayFormat: 'MMM yyyy',
+          },
         description: 'Leave empty for "Present"',
+        condition: (data) => !data.currentlyStudying,
       },
+    },
+    {
+      name: 'grade',
+      type: 'text',
+      label: 'Grade',
     },
   ],
 }
