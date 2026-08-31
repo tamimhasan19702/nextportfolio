@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     work: Work;
+    tags: Tag;
     education: Education;
     certification: Certification;
     experience: Experience;
@@ -84,6 +85,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     work: WorkSelect<false> | WorkSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     education: EducationSelect<false> | EducationSelect<true>;
     certification: CertificationSelect<false> | CertificationSelect<true>;
     experience: ExperienceSelect<false> | ExperienceSelect<true>;
@@ -269,12 +271,18 @@ export interface Work {
       }[]
     | null;
   sortOrder?: number | null;
-  tags?:
-    | {
-        tag?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  tags?: (string | Tag)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -399,6 +407,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'work';
         value: string | Work;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: string | Tag;
       } | null)
     | ({
         relationTo: 'education';
@@ -540,12 +552,17 @@ export interface WorkSelect<T extends boolean = true> {
         id?: T;
       };
   sortOrder?: T;
-  tags?:
-    | T
-    | {
-        tag?: T;
-        id?: T;
-      };
+  tags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

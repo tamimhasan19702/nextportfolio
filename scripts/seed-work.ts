@@ -20,6 +20,8 @@ type SeedProject = {
   additionalLinks: { label: string; url: string }[]
 }
 
+type SeedTag = { name: string; slug: string }
+
 const toLexical = (children: unknown[]): any => ({
   root: {
     type: 'root',
@@ -30,6 +32,27 @@ const toLexical = (children: unknown[]): any => ({
     children,
   },
 })
+
+const allTags: SeedTag[] = [
+  { name: 'React', slug: 'react' },
+  { name: 'Redux', slug: 'redux' },
+  { name: 'Tailwind CSS', slug: 'tailwind-css' },
+  { name: 'Stripe', slug: 'stripe' },
+  { name: 'Next.js', slug: 'nextjs' },
+  { name: 'MDX', slug: 'mdx' },
+  { name: 'Vercel', slug: 'vercel' },
+  { name: 'JavaScript', slug: 'javascript' },
+  { name: 'HTML', slug: 'html' },
+  { name: 'CSS', slug: 'css' },
+  { name: 'IndexedDB', slug: 'indexeddb' },
+  { name: 'Web Audio API', slug: 'web-audio-api' },
+  { name: 'Node.js', slug: 'nodejs' },
+  { name: 'MongoDB', slug: 'mongodb' },
+  { name: 'Socket.io', slug: 'socketio' },
+  { name: 'TypeScript', slug: 'typescript' },
+  { name: 'DnD', slug: 'dnd' },
+  { name: 'LocalStorage', slug: 'localstorage' },
+]
 
 const projects: SeedProject[] = [
   {
@@ -213,6 +236,28 @@ const getMediaId = async (filename: string): Promise<string> => {
   return created.id
 }
 
+console.log('Seeding tags collection...')
+const tagIdMap = new Map<string, string>()
+for (const t of allTags) {
+  const existing = await payload.find({
+    collection: 'tags',
+    where: { slug: { equals: t.slug } },
+    depth: 0,
+    limit: 1,
+  })
+  if (existing.docs[0]) {
+    tagIdMap.set(t.name, existing.docs[0].id)
+    console.log(`Tag exists: ${t.name}`)
+    continue
+  }
+  const created = await payload.create({
+    collection: 'tags',
+    data: { name: t.name, slug: t.slug },
+  })
+  tagIdMap.set(t.name, created.id)
+  console.log(`Created tag: ${t.name}`)
+}
+
 console.log('Seeding work collection...')
 for (let i = 0; i < projects.length; i++) {
   const p = projects[i]
@@ -244,7 +289,7 @@ for (let i = 0; i < projects.length; i++) {
         sections: p.sections.map((s) => ({ ...s, content: toLexical(s.content) })),
         images: imageIds.map((image) => ({ image })),
         features: p.features,
-        tags: p.tags.map((tag) => ({ tag })),
+        tags: p.tags.map((tag) => tagIdMap.get(tag)).filter(Boolean),
         liveUrl: p.liveUrl,
         githubUrl: p.githubUrl,
         additionalLinks: p.additionalLinks,

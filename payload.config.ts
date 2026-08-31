@@ -12,6 +12,7 @@ import { Education } from './src/collections/Education'
 import { Certification } from './src/collections/Certification'
 import { Experience } from './src/collections/Experience'
 import { Hobbies } from './src/collections/Hobbies'
+import { Tags } from './src/collections/Tags'
 import { Home } from './src/globals/Home'
 import { Navbar } from './src/globals/Navbar'
 import { Portfolio } from './src/globals/Portfolio'
@@ -28,7 +29,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname, 'src'),
     },
   },
-  collections: [Users, Media, Work, Education, Certification, Experience, Hobbies],
+  collections: [Users, Media, Work, Tags, Education, Certification, Experience, Hobbies],
   globals: [Home, Navbar, Portfolio, About, Contact],
   plugins: [
     ...(process.env.S3_BUCKET
