@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import PortfolioContent from '@/components/PortfolioContent'
-import type { Portfolio } from '@/payload-types'
+import type { Portfolio, Work } from '@/payload-types'
 import type { WorkWithYear } from '@/types'
 
 export const dynamic = 'force-dynamic'
@@ -20,7 +20,20 @@ const PortfolioPage = async () => {
     payload.findGlobal({ slug: 'portfolio', depth: 1 }),
   ])
 
-  const worksWithYear: WorkWithYear[] = worksResult.docs.map(work => ({
+  const selectedWorks = portfolioGlobal?.selectedWorks || []
+  const allWorks = worksResult.docs
+
+  const displayWorks: Work[] = selectedWorks.length > 0
+    ? selectedWorks
+        .map((sel: string | Work) =>
+          typeof sel === "string"
+            ? undefined
+            : allWorks.find((w) => w.id === sel.id)
+        )
+        .filter((w): w is Work => Boolean(w))
+    : []
+
+  const worksWithYear: WorkWithYear[] = displayWorks.map(work => ({
     ...work,
     year: work.Date ? new Date(work.Date).getUTCFullYear() : null,
   }))
