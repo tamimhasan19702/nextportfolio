@@ -41,6 +41,7 @@ export const Portfolio: GlobalConfig = {
       relationTo: 'work',
       hasMany: true,
       admin: {
+        sortOptions: 'sortOrder',
         description: 'Select projects to display. If empty, nothing is shown.',
       },
     },
