@@ -15,10 +15,10 @@ import type { PortfolioContentProps } from "./interface";
 const formatIndex = (id: number | string) => String(id).padStart(2, "0");
 
 const getBento = (index: number) => {
-  const cycle = Math.floor(index / 3);
-  const slot = index % 3;
-  const feature = cycle % 3;
-  return slot === feature ? "lg:col-span-2 lg:row-span-2" : "lg:col-span-1 lg:row-span-1";
+  const slot = index % 4;
+  return slot === 1 || slot === 2
+    ? "lg:col-span-2 lg:row-span-1"
+    : "lg:col-span-1 lg:row-span-1";
 };
 
 const getProjectImages = (project: Work) => {
