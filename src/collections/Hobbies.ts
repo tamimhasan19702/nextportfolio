@@ -1,12 +1,14 @@
-import type { CollectionConfig } from 'payload'
-import { HOBBIES_ICON_OPTIONS } from './hobbyIconOptions'
+import { createCollectionCacheHooks } from "@/lib/payload-revalidation";
+import type { CollectionConfig } from "payload";
+import { HOBBIES_ICON_OPTIONS } from "./hobbyIconOptions";
 
 export const Hobbies: CollectionConfig = {
-  slug: 'hobbies',
+  slug: "hobbies",
+  hooks: createCollectionCacheHooks(),
   admin: {
-    group: 'About',
-    useAsTitle: 'text',
-    defaultColumns: ['icon', 'text'],
+    group: "About",
+    useAsTitle: "text",
+    defaultColumns: ["icon", "text"],
   },
   orderable: true,
   access: {
@@ -14,19 +16,19 @@ export const Hobbies: CollectionConfig = {
   },
   fields: [
     {
-      name: 'icon',
-      type: 'select',
+      name: "icon",
+      type: "select",
       required: true,
       options: HOBBIES_ICON_OPTIONS,
     },
     {
-      name: 'text',
-      type: 'text',
+      name: "text",
+      type: "text",
       required: true,
     },
     {
-      name: 'description',
-      type: 'text',
+      name: "description",
+      type: "text",
     },
   ],
-}
+};

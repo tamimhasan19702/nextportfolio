@@ -1,13 +1,18 @@
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import type { CollectionConfig } from 'payload'
+import { revalidateWork } from "@/lib/payload-revalidation";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import type { CollectionConfig } from "payload";
 
 export const Work: CollectionConfig = {
-  slug: 'work',
+  slug: "work",
+  hooks: {
+    afterChange: [({ doc }) => revalidateWork(doc)],
+    afterDelete: [({ doc }) => revalidateWork(doc)],
+  },
   admin: {
-    group: 'Projects',
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'year', 'sortOrder'],
-    listSearchableFields: ['title', 'category'],
+    group: "Projects",
+    useAsTitle: "title",
+    defaultColumns: ["title", "category", "year", "sortOrder"],
+    listSearchableFields: ["title", "category"],
   },
   orderable: true,
   access: {
@@ -15,135 +20,135 @@ export const Work: CollectionConfig = {
   },
   fields: [
     {
-      name: 'slug',
-      type: 'text',
+      name: "slug",
+      type: "text",
       unique: true,
       required: true,
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
     },
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'category',
-      type: 'text',
+      name: "category",
+      type: "text",
       required: true,
     },
     {
-      name: 'Date',
-      type: 'date',
+      name: "Date",
+      type: "date",
       required: true,
     },
     {
-      name: 'excerpt',
-      type: 'richText',
+      name: "excerpt",
+      type: "richText",
       editor: lexicalEditor(),
       admin: {
-        description: 'Short card description',
+        description: "Short card description",
       },
     },
     {
-      name: 'images',
-      type: 'array',
+      name: "images",
+      type: "array",
       maxRows: 12,
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          name: "image",
+          type: "upload",
+          relationTo: "media",
           required: true,
         },
       ],
       admin: {
-        description: 'Drag to reorder (max 12)',
+        description: "Drag to reorder (max 12)",
       },
     },
     {
-      name: 'sections',
-      type: 'array',
+      name: "sections",
+      type: "array",
       fields: [
         {
-          name: 'overline',
-          type: 'text',
+          name: "overline",
+          type: "text",
         },
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
         },
         {
-          name: 'content',
-          type: 'richText',
+          name: "content",
+          type: "richText",
           editor: lexicalEditor(),
         },
       ],
       admin: {
-        description: 'Case study sections (overline, title, rich text)',
+        description: "Case study sections (overline, title, rich text)",
       },
     },
     {
-      name: 'features',
-      type: 'array',
+      name: "features",
+      type: "array",
       fields: [
         {
-          name: 'feature',
-          type: 'text',
+          name: "feature",
+          type: "text",
         },
       ],
       admin: {
-        description: 'Add features as individual items',
+        description: "Add features as individual items",
       },
     },
     {
-      name: 'liveUrl',
-      type: 'text',
-       admin: {
-        position: 'sidebar',
+      name: "liveUrl",
+      type: "text",
+      admin: {
+        position: "sidebar",
       },
     },
     {
-      name: 'githubUrl',
-      type: 'text',
-       admin: {
-        position: 'sidebar',
+      name: "githubUrl",
+      type: "text",
+      admin: {
+        position: "sidebar",
       },
     },
     {
-      name: 'additionalLinks',
-      type: 'array',
+      name: "additionalLinks",
+      type: "array",
       fields: [
         {
-          name: 'label',
-          type: 'text',
+          name: "label",
+          type: "text",
         },
         {
-          name: 'url',
-          type: 'text',
+          name: "url",
+          type: "text",
         },
       ],
-       admin: {
-        position: 'sidebar',
+      admin: {
+        position: "sidebar",
       },
     },
     {
-      name: 'sortOrder',
-      type: 'number',
+      name: "sortOrder",
+      type: "number",
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
         hidden: true,
       },
     },
     {
-      name: 'tags',
-      type: 'relationship',
-      relationTo: 'tags',
+      name: "tags",
+      type: "relationship",
+      relationTo: "tags",
       hasMany: true,
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
     },
   ],
-}
+};

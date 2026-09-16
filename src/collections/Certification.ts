@@ -1,12 +1,14 @@
-import type { CollectionConfig } from 'payload'
+import { createCollectionCacheHooks } from "@/lib/payload-revalidation";
+import type { CollectionConfig } from "payload";
 
 export const Certification: CollectionConfig = {
-  slug: 'certification',
+  slug: "certification",
+  hooks: createCollectionCacheHooks(),
   admin: {
-    group: 'About',
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'institution', 'date'],
-    listSearchableFields: ['name', 'institution'],
+    group: "About",
+    useAsTitle: "name",
+    defaultColumns: ["name", "institution", "date"],
+    listSearchableFields: ["name", "institution"],
   },
   orderable: true,
   access: {
@@ -14,39 +16,39 @@ export const Certification: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
+      name: "name",
+      type: "text",
       required: true,
     },
     {
-      name: 'institution',
-      type: 'text',
+      name: "institution",
+      type: "text",
       required: true,
     },
     {
-      name: 'certificateId',
-      type: 'text',
+      name: "certificateId",
+      type: "text",
       admin: {
-        description: 'Verifiable credential ID (optional)',
+        description: "Verifiable credential ID (optional)",
       },
     },
     {
-      name: 'date',
-      type: 'date',
+      name: "date",
+      type: "date",
       required: true,
       admin: {
         date: {
-          pickerAppearance: 'monthOnly',
-          displayFormat: 'MMM yyyy',
+          pickerAppearance: "monthOnly",
+          displayFormat: "MMM yyyy",
         },
       },
     },
     {
-      name: 'link',
-      type: 'text',
+      name: "link",
+      type: "text",
       admin: {
-        description: 'Public certificate URL link (optional)',
+        description: "Public certificate URL link (optional)",
       },
     },
   ],
-}
+};

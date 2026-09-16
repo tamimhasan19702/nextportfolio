@@ -1,29 +1,31 @@
-import type { CollectionConfig } from 'payload'
+import { createCollectionCacheHooks } from "@/lib/payload-revalidation";
+import type { CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
-  slug: 'users',
+  slug: "users",
+  hooks: createCollectionCacheHooks(),
   admin: {
-    useAsTitle: 'email',
-    group: 'Collections',
+    useAsTitle: "email",
+    group: "Collections",
   },
   auth: true,
   fields: [
     {
-      name: 'roles',
-      type: 'select',
+      name: "roles",
+      type: "select",
       access: {
-        update: ({ req: { user } }) => user?.roles?.includes('admin') ?? false,
+        update: ({ req: { user } }) => user?.roles?.includes("admin") ?? false,
       },
       admin: {
-        description: 'Whether this user is an administrator or a regular site user.',
+        description: "Whether this user is an administrator or a regular site user.",
       },
-      defaultValue: ['user'],
+      defaultValue: ["user"],
       options: [
-        { label: 'Admin', value: 'admin' },
-        { label: 'User', value: 'user' },
+        { label: "Admin", value: "admin" },
+        { label: "User", value: "user" },
       ],
       required: true,
       saveToJWT: true,
     },
   ],
-}
+};

@@ -1,90 +1,92 @@
-import type { GlobalConfig } from 'payload'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { createGlobalCacheHooks } from "@/lib/payload-revalidation";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import type { GlobalConfig } from "payload";
 
 export const Home: GlobalConfig = {
-  slug: 'home',
+  slug: "home",
+  hooks: createGlobalCacheHooks("home"),
   admin: {
-    group: 'Pages',
+    group: "Pages",
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: 'hero',
-      type: 'group',
+      name: "hero",
+      type: "group",
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          name: "image",
+          type: "upload",
+          relationTo: "media",
         },
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
         },
         {
-          name: 'description',
-          type: 'richText',
+          name: "description",
+          type: "richText",
           editor: lexicalEditor(),
         },
         {
-          name: 'buttons',
-          type: 'array',
+          name: "buttons",
+          type: "array",
           admin: {
-            position: 'sidebar',
+            position: "sidebar",
           },
           fields: [
             {
-              name: 'label',
-              type: 'text',
+              name: "label",
+              type: "text",
             },
             {
-              name: 'variant',
-              type: 'select',
-              defaultValue: 'primary',
+              name: "variant",
+              type: "select",
+              defaultValue: "primary",
               options: [
-                { label: 'Primary', value: 'primary' },
-                { label: 'Outline', value: 'outline' },
+                { label: "Primary", value: "primary" },
+                { label: "Outline", value: "outline" },
               ],
             },
             {
-              name: 'linkType',
-              type: 'radio',
-              defaultValue: 'internal',
+              name: "linkType",
+              type: "radio",
+              defaultValue: "internal",
               options: [
-                { label: 'Internal', value: 'internal' },
-                { label: 'External', value: 'external' },
+                { label: "Internal", value: "internal" },
+                { label: "External", value: "external" },
               ],
             },
             {
-              name: 'internalLink',
-              type: 'text',
+              name: "internalLink",
+              type: "text",
               admin: {
-                condition: (data, siblingData) => siblingData?.linkType === 'internal',
-                placeholder: '/portfolio',
+                condition: (data, siblingData) => siblingData?.linkType === "internal",
+                placeholder: "/portfolio",
               },
             },
             {
-              name: 'externalUrl',
-              type: 'text',
+              name: "externalUrl",
+              type: "text",
               admin: {
-                condition: (data, siblingData) => siblingData?.linkType === 'external',
-                placeholder: 'https://...',
+                condition: (data, siblingData) => siblingData?.linkType === "external",
+                placeholder: "https://...",
               },
             },
             {
-              name: 'showProgress',
-              type: 'checkbox',
+              name: "showProgress",
+              type: "checkbox",
               defaultValue: false,
             },
             {
-              name: 'progressLabel',
-              type: 'text',
+              name: "progressLabel",
+              type: "text",
             },
             {
-              name: 'progressValue',
-              type: 'number',
+              name: "progressValue",
+              type: "number",
               min: 0,
               max: 100,
               defaultValue: 0,
@@ -94,4 +96,4 @@ export const Home: GlobalConfig = {
       ],
     },
   ],
-}
+};

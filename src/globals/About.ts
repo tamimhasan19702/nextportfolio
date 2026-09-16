@@ -1,73 +1,75 @@
-import type { GlobalConfig } from 'payload'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { createGlobalCacheHooks } from "@/lib/payload-revalidation";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import type { GlobalConfig } from "payload";
 
 export const About: GlobalConfig = {
-  slug: 'about',
+  slug: "about",
+  hooks: createGlobalCacheHooks("about"),
   admin: {
-    group: 'Pages',
+    group: "Pages",
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: 'overline',
-      type: 'text',
+      name: "overline",
+      type: "text",
     },
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
     },
     {
-      name: 'description',
-      type: 'richText',
+      name: "description",
+      type: "richText",
       editor: lexicalEditor(),
     },
     {
-      name: 'signature',
-      type: 'upload',
-      relationTo: 'media',
+      name: "signature",
+      type: "upload",
+      relationTo: "media",
       admin: {
-        description: 'Optional signature image',
+        description: "Optional signature image",
       },
     },
     {
-      name: 'education',
-      type: 'relationship',
-      relationTo: 'education',
+      name: "education",
+      type: "relationship",
+      relationTo: "education",
       hasMany: true,
     },
     {
-      name: 'certifications',
-      type: 'relationship',
-      relationTo: 'certification',
+      name: "certifications",
+      type: "relationship",
+      relationTo: "certification",
       hasMany: true,
     },
     {
-      name: 'experiences',
-      type: 'relationship',
-      relationTo: 'experience',
+      name: "experiences",
+      type: "relationship",
+      relationTo: "experience",
       hasMany: true,
     },
     {
-      name: 'skills',
-      type: 'array',
+      name: "skills",
+      type: "array",
       admin: {
-        position: 'sidebar',
-        description: 'Skills shown in the sidebar',
+        position: "sidebar",
+        description: "Skills shown in the sidebar",
       },
       fields: [
         {
-          name: 'skill',
-          type: 'text',
+          name: "skill",
+          type: "text",
         },
       ],
     },
     {
-      name: 'hobbies',
-      type: 'relationship',
-      relationTo: 'hobbies',
+      name: "hobbies",
+      type: "relationship",
+      relationTo: "hobbies",
       hasMany: true,
     },
   ],
-}
+};

@@ -1,37 +1,39 @@
-import type { GlobalConfig } from 'payload'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { createGlobalCacheHooks } from "@/lib/payload-revalidation";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import type { GlobalConfig } from "payload";
 
 export const Contact: GlobalConfig = {
-  slug: 'contact',
+  slug: "contact",
+  hooks: createGlobalCacheHooks("contact"),
   admin: {
-    group: 'Pages',
+    group: "Pages",
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: 'overline',
-      type: 'text',
-      defaultValue: 'Contact',
+      name: "overline",
+      type: "text",
+      defaultValue: "Contact",
     },
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       defaultValue: "Let's Work Together",
     },
     {
-      name: 'description',
-      type: 'richText',
+      name: "description",
+      type: "richText",
       editor: lexicalEditor(),
     },
     {
-      name: 'moreInfo',
-      type: 'richText',
+      name: "moreInfo",
+      type: "richText",
       editor: lexicalEditor(),
       admin: {
-        description: 'Contact details shown on the left (email, phone, location, availability)',
+        description: "Contact details shown on the left (email, phone, location, availability)",
       },
     },
   ],
-}
+};

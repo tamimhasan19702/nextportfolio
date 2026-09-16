@@ -15,7 +15,7 @@ const getCachedGlobal = (slug: CachedGlobalSlug, depth: number) =>
     [`payload-global-${slug}-${depth}`],
     {
       revalidate: cacheRevalidate,
-      tags: [`payload-global:${slug}`],
+      tags: ["payload-site", `payload-global:${slug}`],
     },
   )();
 
@@ -42,7 +42,7 @@ export const getPortfolioData = unstable_cache(
   ["payload-portfolio"],
   {
     revalidate: cacheRevalidate,
-    tags: ["payload-global:portfolio", "payload-collection:work"],
+    tags: ["payload-site", "payload-global:portfolio", "payload-collection:work"],
   },
 );
 
@@ -62,6 +62,6 @@ export const getProjectBySlug = (slug: string) =>
     [`payload-work-${slug}`],
     {
       revalidate: cacheRevalidate,
-      tags: ["payload-collection:work", `payload-work:${slug}`],
+      tags: ["payload-site", "payload-collection:work", `payload-work:${slug}`],
     },
   )();
