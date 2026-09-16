@@ -1,21 +1,17 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import ContactContent from '@/components/contactContent'
-import type { Contact } from '@/payload-types'
-
-export const dynamic = 'force-dynamic'
+import ContactContent from "@/components/contactContent";
+import { getContact } from "@/lib/payload-cache";
+import type { Contact } from "@/payload-types";
 
 const ContactPage = async () => {
-  let contact = null
+  let contact = null;
 
   try {
-    const payload = await getPayload({ config })
-    contact = await payload.findGlobal({ slug: 'contact', depth: 1 })
+    contact = await getContact();
   } catch (err) {
-    console.error('Failed to load contact global from Payload', err)
+    console.error("Failed to load contact global from Payload", err);
   }
 
-  return <ContactContent contact={contact as Contact | null} />
-}
+  return <ContactContent contact={contact as Contact | null} />;
+};
 
-export default ContactPage
+export default ContactPage;
