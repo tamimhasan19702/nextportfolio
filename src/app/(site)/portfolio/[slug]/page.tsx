@@ -1,7 +1,13 @@
 import ProjectContent from "@/components/ProjectContent";
-import { getProjectBySlug } from "@/lib/payload-cache";
+import { getPortfolioData, getProjectBySlug } from "@/lib/payload-cache";
 import type { PortfolioSlugParams } from "@/types";
 import { notFound } from "next/navigation";
+
+export async function generateStaticParams() {
+  const [worksResult] = await getPortfolioData();
+
+  return worksResult.docs.flatMap(({ slug }) => (slug ? [{ slug }] : []));
+}
 
 const ProjectPage = async ({ params }: { params: Promise<PortfolioSlugParams> }) => {
   const { slug } = await params;

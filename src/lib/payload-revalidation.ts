@@ -1,11 +1,12 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 type CacheDocument = {
   slug?: string | null;
 };
 
 export const revalidateSite = () => {
-  revalidateTag("payload-site", "max");
+  revalidateTag("payload-site", { expire: 0 });
+  revalidatePath("/", "layout");
 };
 
 export const createCollectionCacheHooks = () => ({
@@ -18,15 +19,15 @@ export const createGlobalCacheHooks = (slug: string) => ({
 });
 
 export const revalidateGlobal = (slug: string) => {
-  revalidateTag(`payload-global:${slug}`, "max");
+  revalidateTag(`payload-global:${slug}`, { expire: 0 });
   revalidateSite();
 };
 
 export const revalidateWork = (doc?: CacheDocument | null) => {
-  revalidateTag("payload-collection:work", "max");
+  revalidateTag("payload-collection:work", { expire: 0 });
   revalidateSite();
 
   if (doc?.slug) {
-    revalidateTag(`payload-work:${doc.slug}`, "max");
+    revalidateTag(`payload-work:${doc.slug}`, { expire: 0 });
   }
 };

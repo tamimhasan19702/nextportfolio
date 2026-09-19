@@ -2,8 +2,6 @@ import config from "@payload-config";
 import { unstable_cache } from "next/cache";
 import { getPayload } from "payload";
 
-const cacheRevalidate = Number(process.env.PAYLOAD_CACHE_REVALIDATE ?? 300);
-
 type CachedGlobalSlug = "navbar" | "home" | "about" | "contact";
 
 const getCachedGlobal = (slug: CachedGlobalSlug, depth: number) =>
@@ -14,7 +12,6 @@ const getCachedGlobal = (slug: CachedGlobalSlug, depth: number) =>
     },
     [`payload-global-${slug}-${depth}`],
     {
-      revalidate: cacheRevalidate,
       tags: ["payload-site", `payload-global:${slug}`],
     },
   )();
@@ -41,7 +38,6 @@ export const getPortfolioData = unstable_cache(
   },
   ["payload-portfolio"],
   {
-    revalidate: cacheRevalidate,
     tags: ["payload-site", "payload-global:portfolio", "payload-collection:work"],
   },
 );
@@ -61,7 +57,6 @@ export const getProjectBySlug = (slug: string) =>
     },
     [`payload-work-${slug}`],
     {
-      revalidate: cacheRevalidate,
       tags: ["payload-site", "payload-collection:work", `payload-work:${slug}`],
     },
   )();
